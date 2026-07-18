@@ -643,12 +643,50 @@ section[id] { scroll-margin-top: 80px; }
   left: 0 !important;
   transform: none !important;
 }
+/* ===== PRODUCT CARD & FOOTER FIX ===== */
+
+/* Card jadi flex column biar footer selalu di bawah */
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Footer: harga kiri, tombol kanan, selalu rapi */
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto; /* dorong ke bawah */
+}
+
+.product-footer .price {
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.product-footer .wa-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+/* Icon di dalam tombol */
 .btn-icon {
   width: 1.2em;
   height: 1.2em;
   vertical-align: middle;
-  margin-right: 0.3em;
+  flex-shrink: 0;
 }
+
 .header-icon {
   width: 1.1em;
   height: 1.1em;
@@ -656,3 +694,4 @@ section[id] { scroll-margin-top: 80px; }
   margin-right: 0.3em;
   display: inline-block;
 }
+
