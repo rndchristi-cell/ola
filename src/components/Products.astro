@@ -1,4 +1,3 @@
-
 ---
 import productsData from '../data/products.json';
 import site from '../data/site.json';
@@ -21,7 +20,6 @@ const formatPrice = (price: number) => {
     {productsData.products.map((product) => (
       <div class="product-card" data-product-id={product.id}>
         <div class="product-img" onclick={`openProductDetail(${product.id})`}>
-          {/* OPSI 1: Image file (webp/png/svg) - paling bagus */}
           {product.image && (
             <img 
               src={product.image} 
@@ -31,22 +29,15 @@ const formatPrice = (price: number) => {
               onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
             />
           )}
-
-          {/* OPSI 2: SVG inline - clean & scalable */}
           {product.svg && (
             <div class="product-svg" set:html={product.svg} />
           )}
-
-          {/* OPSI 3: Emoji fallback - paling gampang */}
           {!product.image && !product.svg && product.emoji && (
             <span class="emoji-fallback">{product.emoji}</span>
           )}
-
-          {/* OPSI 4: Placeholder kalau semua kosong */}
           {!product.image && !product.svg && !product.emoji && (
-            <span class="emoji-fallback">ðŸ‘˜</span>
+            <span class="emoji-fallback">👘</span>
           )}
-
           {product.badge && <span class="product-badge">{product.badge}</span>}
         </div>
         <div class="product-info">
@@ -54,17 +45,18 @@ const formatPrice = (price: number) => {
           <p class="desc">{product.desc}</p>
           <div class="product-footer">
             <span class="price">{formatPrice(product.price)}</span>
-            <button class="wa-btn wa-popup-trigger">
-  🛒 Pesan
-</button>
-
+            <button 
+              class="wa-btn wa-popup-trigger"
               data-name={product.name}
               data-price={formatPrice(product.price)}
-              data-emoji={product.emoji || 'ðŸ‘˜'}
+              data-emoji={product.emoji || '👘'}
               data-image={product.image || ''}
               data-variants={JSON.stringify(product.variants || [])}
             >
-              ðŸ’¬ Pesan
+              <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span>Pesan</span>
             </button>
           </div>
         </div>
@@ -73,7 +65,7 @@ const formatPrice = (price: number) => {
   </div>
 </section>
 
-<!-- Product Detail Popup (Simple Woo-style) -->
+<!-- Product Detail Popup -->
 <div class="product-detail-overlay" id="productDetailPopup">
   <div class="product-detail-popup">
     <div class="detail-header">
@@ -83,7 +75,7 @@ const formatPrice = (price: number) => {
     <div class="detail-body">
       <div class="detail-image" id="detailImage">
         <img id="detailImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;" />
-        <span id="detailEmoji">ðŸ‘˜</span>
+        <span id="detailEmoji">👘</span>
       </div>
       <div class="detail-info">
         <div class="detail-price" id="detailPrice">Rp 0</div>
@@ -94,9 +86,11 @@ const formatPrice = (price: number) => {
           <div class="variant-tags" id="variantTags"></div>
         </div>
         <button class="detail-wa-btn" onclick="orderFromDetail()">
-  🛒 Pesan via WhatsApp
-</button>
-
+          <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Pesan via WhatsApp</span>
+        </button>
       </div>
     </div>
   </div>
@@ -106,12 +100,16 @@ const formatPrice = (price: number) => {
 <div class="wa-popup-overlay" id="waPopup">
   <div class="wa-popup">
     <div class="wa-popup-header">
-      <h3>🛒 Pesan Produk</h3>
-
+      <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        Pesan Produk
+      </h3>
       <button class="wa-popup-close" onclick="closeWaPopup()">&times;</button>
     </div>
     <div class="wa-popup-product">
-      <span class="emoji" id="popupEmoji">ðŸ‘˜</span>
+      <span class="emoji" id="popupEmoji">👘</span>
       <img class="popup-image" id="popupImage" src="" alt="" style="display:none;width:48px;height:48px;object-fit:contain;" />
       <div class="info">
         <div class="name" id="popupProductName">Nama Produk</div>
@@ -140,20 +138,21 @@ const formatPrice = (price: number) => {
         <textarea id="waNote" name="note" placeholder="Warna, ukuran khusus, dll."></textarea>
       </div>
       <button type="submit" class="wa-submit">
-        ðŸ’¬ Kirim ke WhatsApp
+        <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <span>Kirim ke WhatsApp</span>
       </button>
     </form>
   </div>
 </div>
 
 <script define:vars={{ products: productsData.products, waNumber: site.waNumber }}>
-  // Product Detail Logic
   let currentDetailProduct = null;
 
   function openProductDetail(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-
     currentDetailProduct = product;
 
     document.getElementById('detailName').textContent = product.name;
@@ -162,7 +161,6 @@ const formatPrice = (price: number) => {
     }).format(product.price);
     document.getElementById('detailDesc').textContent = product.desc;
 
-    // Handle image/emoji in detail popup
     const detailImg = document.getElementById('detailImg');
     const detailEmoji = document.getElementById('detailEmoji');
     if (product.image) {
@@ -177,10 +175,9 @@ const formatPrice = (price: number) => {
     } else {
       detailImg.style.display = 'none';
       detailEmoji.style.display = 'flex';
-      detailEmoji.textContent = product.emoji || 'ðŸ‘˜';
+      detailEmoji.textContent = product.emoji || '👘';
     }
 
-    // Badge
     const badgeEl = document.getElementById('detailBadge');
     if (product.badge) {
       badgeEl.textContent = product.badge;
@@ -189,7 +186,6 @@ const formatPrice = (price: number) => {
       badgeEl.style.display = 'none';
     }
 
-    // Variants
     const variantsEl = document.getElementById('detailVariants');
     const variantTagsEl = document.getElementById('variantTags');
     if (product.variants && product.variants.length > 0) {
@@ -222,7 +218,6 @@ const formatPrice = (price: number) => {
     if (e.target === this) closeProductDetail();
   });
 
-  // WA Popup Logic
   let currentProduct = { name: '', price: '', emoji: '' };
 
   function openWaPopup(name, price, emoji, image, variants) {
@@ -269,20 +264,19 @@ const formatPrice = (price: number) => {
 
   function sendToWA(e) {
     e.preventDefault();
-
     const name = document.getElementById('waName').value;
     const qty = document.getElementById('waQty').value;
     const variant = document.getElementById('waVariant').value;
     const note = document.getElementById('waNote').value;
 
-    let message = `Halo Ola Store! ðŸ‘‹%0A%0A`;
+    let message = `Halo Ola Store!%0A%0A`;
     message += `Saya *${name}* ingin memesan:%0A`;
-    message += `ðŸ“¦ *${currentProduct.name}*%0A`;
-    message += `ðŸ’° ${currentProduct.price}%0A`;
-    message += `ðŸ”¢ Jumlah: ${qty}%0A`;
-    if (variant) message += `ðŸ“ Ukuran: ${variant}%0A`;
-    if (note) message += `ðŸ“ Catatan: ${note}%0A`;
-    message += `%0ATerima kasih! ðŸ™`;
+    message += `*${currentProduct.name}*%0A`;
+    message += `${currentProduct.price}%0A`;
+    message += `Jumlah: ${qty}%0A`;
+    if (variant) message += `Ukuran: ${variant}%0A`;
+    if (note) message += `Catatan: ${note}%0A`;
+    message += `%0ATerima kasih!`;
 
     window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
     closeWaPopup();
@@ -307,3 +301,4 @@ const formatPrice = (price: number) => {
     });
   });
 </script>
+
