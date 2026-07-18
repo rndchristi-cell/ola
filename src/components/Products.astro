@@ -22,7 +22,8 @@ const formatPrice = (price: number) => {
         <div class="product-img">
           <!-- GANTI FOTO: taruh gambar di public/images/produk-{id}.webp -->
           <img 
-            src={`/images/produk-${product.id}.jpg`} 
+            src={`/images/produk-${product.id}.webp`}
+ 
             alt={product.name}
             style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;"
             onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
