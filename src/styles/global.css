@@ -254,9 +254,23 @@ body {
   .product-info .desc { font-size: 0.85rem; margin-bottom: 12px; }
 }
 .product-footer {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
+  margin-top: auto; 
 }
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .price {
   font-weight: 700; font-size: 0.9rem; color: var(--primary);
 }
@@ -539,7 +553,9 @@ section[id] { scroll-margin-top: 80px; }
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   color: var(--primary-dark);
-  padding-right: 20px;
+  display: flex;           
+  align-items: center;     
+  gap: 8px;              
 }
 .detail-close {
   background: none; border: none; font-size: 1.8rem;
@@ -634,12 +650,38 @@ section[id] { scroll-margin-top: 80px; }
   .detail-image span { font-size: 3.5rem; }
   .detail-price { font-size: 1.5rem; }
 }
-.product-image-file {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  transform: none !important;
+/* Icon di header popup jangan gede */
+.wa-popup-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--primary-dark);
+  display: flex;           /* ← TAMBAH */
+  align-items: center;     /* ← TAMBAH */
+  gap: 8px;                /* ← TAMBAH */
+}
+
+/* Icon di tombol submit jangan gede */
+.wa-submit {
+  width: 100%;
+  background: var(--wa-green);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.wa-submit .btn-icon,
+.wa-popup-header h3 .header-icon {
+  width: 1.2em !important;
+  height: 1.2em !important;
+  flex-shrink: 0;
 }
