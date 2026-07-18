@@ -1,6 +1,11 @@
 ---
 const posts = await Astro.glob('../content/blog/*.md');
 posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+
+// Ambil slug dari URL file Astro
+function getSlug(filePath) {
+  return filePath.split('/').pop().replace('.md', '');
+}
 ---
 
 <section id="blog" class="py-20 px-4">
@@ -17,7 +22,7 @@ posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
     ) : (
       <div class="grid gap-6">
         {posts.map(post => {
-          const slug = post.file.split('/').pop().replace('.md', '');
+          const slug = getSlug(post.file);
           return (
             <article class="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-ola-accent/50 transition group">
               <a href={`/blog/${slug}`} class="block">
