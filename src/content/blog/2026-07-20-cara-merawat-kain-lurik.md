@@ -1,5 +1,6 @@
 ---
 title: "Cara Merawat Kain Lurik"
+slug: "cara-merawat-kain-lurik"
 date: "2026-07-20"
 description: "Tips merawat kain lurik agar awet dan tetap indah"
 ---
