@@ -686,3 +686,7 @@ section[id] { scroll-margin-top: 80px; }
   height: 1.2em !important;
   flex-shrink: 0;
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* biar ga ketutup navbar */
+}
