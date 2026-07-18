@@ -1,23 +1,42 @@
 ---
-// Ambil semua post dari folder src/content/blog/
 const posts = await Astro.glob('../content/blog/*.md');
+posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
 ---
 
-<section id="blog" class="py-20 px-4 bg-gray-900">
+<section id="blog" class="py-20 px-4">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-3xl font-bold text-white mb-8">Blog Ola Store</h2>
-    
-    <div class="grid gap-6">
-      {posts.map(post => (
-        <article class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition">
-          <h3 class="text-xl font-semibold text-white mb-2">
-            <a href={post.url}>{post.frontmatter.title}</a>
-          </h3>
-          <p class="text-gray-400 text-sm mb-2">{post.frontmatter.date}</p>
-          <p class="text-gray-300">{post.frontmatter.description}</p>
-        </article>
-      ))}
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-3xl font-bold">Blog Ola Store</h2>
+      <span class="text-sm text-gray-400">{posts.length} artikel</span>
     </div>
+    
+    {posts.length === 0 ? (
+      <div class="text-center py-12 text-gray-500">
+        <p>Belum ada artikel.</p>
+      </div>
+    ) : (
+      <div class="grid gap-6">
+        {posts.map(post => (
+          <article class="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-ola-accent/50 transition group">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1">
+                <p class="text-xs text-ola-accent font-medium mb-2">
+                  {new Date(post.frontmatter.date).toLocaleDateString('id-ID', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                  })}
+                </p>
+                <h3 class="text-xl font-semibold mb-2 group-hover:text-ola-accent transition">
+                  {post.frontmatter.title}
+                </h3>
+                <p class="text-gray-400 text-sm line-clamp-2">
+                  {post.frontmatter.description}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
   </div>
 </section>
 
