@@ -1,10 +1,13 @@
 import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://ecclesiola.com',
+  integrations: [tailwind()],
   output: 'static',
-  compressHTML: true,
-  build: {
-    format: 'directory'
-  }
+  site: 'https://ecclesiola.com',
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark',
+    },
+  },
 });
