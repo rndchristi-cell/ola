@@ -22,10 +22,11 @@ function getSlug(filePath) {
     ) : (
       <div class="grid gap-6">
         {posts.map(post => {
-          const slug = getSlug(post.file);
-          return (
+          
+          return 
             <article class="bg-white/5 rounded-xl p-6 border border-white/10 hover:border-ola-accent/50 transition group">
-              <a href={`/blog/${slug}`} class="block">
+              <a href={`/blog/${post.frontmatter.slug}`}>
+
                 <div class="flex items-start justify-between gap-4">
                   <div class="flex-1">
                     <p class="text-xs text-ola-accent font-medium mb-2">
