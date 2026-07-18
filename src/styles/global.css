@@ -643,3 +643,16 @@ section[id] { scroll-margin-top: 80px; }
   left: 0 !important;
   transform: none !important;
 }
+.btn-icon {
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
+.header-icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: middle;
+  margin-right: 0.3em;
+  display: inline-block;
+}
