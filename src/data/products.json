@@ -17,7 +17,8 @@
       "price": 75000,
       "desc": "Kebaya Kutubaru Motif Lurik - Tenun ATBM",
       "badge": "BEST SELLER",
-      "emoji": "🥻",
+      "emoji": "",
+      "image": "/images/produk-2.webp",
       "hasVariants": true,
       "variants": ["S", "M", "L", "XL"]
     },
@@ -27,7 +28,8 @@
       "price": 55000,
       "desc": "Surjan Lurik ukuran balita hingga remaja",
       "badge": "",
-      "emoji": "👔",
+      "emoji": "",
+      "image": "/images/produk-3.webp",
       "hasVariants": true,
       "variants": ["M", "L", "XL", "XXL"]
     },
@@ -37,7 +39,8 @@
       "price": 55000,
       "desc": "Kebaya Lurik Ukuran balita hingga remaja",
       "badge": "",
-      "emoji": "👗",
+      "emoji": "",
+      "image": "/images/produk-4.webp",
       "hasVariants": true,
       "variants": ["S", "M", "L"]
     },
@@ -47,7 +50,8 @@
       "price": 95000,
       "desc": "Kain Lurik Tenun ATBM / Tenun Tradisional",
       "badge": "",
-      "emoji": "🧣",
+      "emoji": "",
+      "image": "/images/produk-5.webp",
       "hasVariants": false
     },
     {
@@ -56,7 +60,8 @@
       "price": 80000,
       "desc": "Pilihan Kain Jarik Solo dengan ragam pilihan motif batik tradisional",
       "badge": "BEST CHOICE",
-      "emoji": "🎁",
+      "emoji": "",
+      "image": "/images/produk-6.webp",
       "hasVariants": false
     }
   ]
