@@ -1,3 +1,4 @@
+
 ---
 import productsData from '../data/products.json';
 import site from '../data/site.json';
@@ -14,25 +15,42 @@ const formatPrice = (price: number) => {
 <section class="products" id="produk">
   <div class="section-header">
     <h2>Katalog Produk</h2>
-    <p>Pilihan Lurik dan Busana Jawa terbaik dari Solo</p>
+    <p>Pilihan lurik dan busana Jawa terbaik dari pengrajin Pasar Klewer</p>
   </div>
   <div class="product-grid">
     {productsData.products.map((product) => (
       <div class="product-card" data-product-id={product.id}>
-        <div class="product-img">
-          <!-- GANTI FOTO: taruh gambar di public/images/produk-{id}.webp -->
-          <img 
-            src={`/images/produk-${product.id}.webp`}
- 
-            alt={product.name}
-            style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;"
-            onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
-          />
-          <span class="emoji-fallback" style="display:none; font-size:2.5rem;">{product.emoji}</span>
+        <div class="product-img" onclick={`openProductDetail(${product.id})`}>
+          {/* OPSI 1: Image file (webp/png/svg) - paling bagus */}
+          {product.image && (
+            <img 
+              src={product.image} 
+              alt={product.name}
+              class="product-image-file"
+              loading="lazy"
+              onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
+            />
+          )}
+
+          {/* OPSI 2: SVG inline - clean & scalable */}
+          {product.svg && (
+            <div class="product-svg" set:html={product.svg} />
+          )}
+
+          {/* OPSI 3: Emoji fallback - paling gampang */}
+          {!product.image && !product.svg && product.emoji && (
+            <span class="emoji-fallback">{product.emoji}</span>
+          )}
+
+          {/* OPSI 4: Placeholder kalau semua kosong */}
+          {!product.image && !product.svg && !product.emoji && (
+            <span class="emoji-fallback">ðŸ‘˜</span>
+          )}
+
           {product.badge && <span class="product-badge">{product.badge}</span>}
         </div>
         <div class="product-info">
-          <h3>{product.name}</h3>
+          <h3 onclick={`openProductDetail(${product.id})`}>{product.name}</h3>
           <p class="desc">{product.desc}</p>
           <div class="product-footer">
             <span class="price">{formatPrice(product.price)}</span>
@@ -40,10 +58,11 @@ const formatPrice = (price: number) => {
               class="wa-btn wa-popup-trigger"
               data-name={product.name}
               data-price={formatPrice(product.price)}
-              data-emoji={product.emoji}
+              data-emoji={product.emoji || 'ðŸ‘˜'}
+              data-image={product.image || ''}
               data-variants={JSON.stringify(product.variants || [])}
             >
-              💬 Pesan
+              ðŸ’¬ Pesan
             </button>
           </div>
         </div>
@@ -52,15 +71,44 @@ const formatPrice = (price: number) => {
   </div>
 </section>
 
+<!-- Product Detail Popup (Simple Woo-style) -->
+<div class="product-detail-overlay" id="productDetailPopup">
+  <div class="product-detail-popup">
+    <div class="detail-header">
+      <h3 id="detailName">Nama Produk</h3>
+      <button class="detail-close" onclick="closeProductDetail()">&times;</button>
+    </div>
+    <div class="detail-body">
+      <div class="detail-image" id="detailImage">
+        <img id="detailImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;" />
+        <span id="detailEmoji">ðŸ‘˜</span>
+      </div>
+      <div class="detail-info">
+        <div class="detail-price" id="detailPrice">Rp 0</div>
+        <div class="detail-badge" id="detailBadge" style="display:none;"></div>
+        <div class="detail-desc" id="detailDesc">Deskripsi produk...</div>
+        <div class="detail-variants" id="detailVariants" style="display:none;">
+          <strong>Ukuran Tersedia:</strong>
+          <div class="variant-tags" id="variantTags"></div>
+        </div>
+        <button class="detail-wa-btn" id="detailWaBtn" onclick="orderFromDetail()">
+          ðŸ’¬ Pesan via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- WA Popup Form -->
 <div class="wa-popup-overlay" id="waPopup">
   <div class="wa-popup">
     <div class="wa-popup-header">
-      <h3>🛒 Pesan Produk</h3>
+      <h3>ðŸ›’ Pesan Produk</h3>
       <button class="wa-popup-close" onclick="closeWaPopup()">&times;</button>
     </div>
     <div class="wa-popup-product">
-      <span class="emoji" id="popupEmoji">👘</span>
+      <span class="emoji" id="popupEmoji">ðŸ‘˜</span>
+      <img class="popup-image" id="popupImage" src="" alt="" style="display:none;width:48px;height:48px;object-fit:contain;" />
       <div class="info">
         <div class="name" id="popupProductName">Nama Produk</div>
         <div class="price" id="popupProductPrice">Rp 0</div>
@@ -88,8 +136,170 @@ const formatPrice = (price: number) => {
         <textarea id="waNote" name="note" placeholder="Warna, ukuran khusus, dll."></textarea>
       </div>
       <button type="submit" class="wa-submit">
-        💬 Kirim ke WhatsApp
+        ðŸ’¬ Kirim ke WhatsApp
       </button>
     </form>
   </div>
 </div>
+
+<script define:vars={{ products: productsData.products, waNumber: site.waNumber }}>
+  // Product Detail Logic
+  let currentDetailProduct = null;
+
+  function openProductDetail(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    currentDetailProduct = product;
+
+    document.getElementById('detailName').textContent = product.name;
+    document.getElementById('detailPrice').textContent = new Intl.NumberFormat('id-ID', {
+      style: 'currency', currency: 'IDR', minimumFractionDigits: 0
+    }).format(product.price);
+    document.getElementById('detailDesc').textContent = product.desc;
+
+    // Handle image/emoji in detail popup
+    const detailImg = document.getElementById('detailImg');
+    const detailEmoji = document.getElementById('detailEmoji');
+    if (product.image) {
+      detailImg.src = product.image;
+      detailImg.alt = product.name;
+      detailImg.style.display = 'block';
+      detailEmoji.style.display = 'none';
+    } else if (product.svg) {
+      detailImg.style.display = 'none';
+      detailEmoji.style.display = 'flex';
+      detailEmoji.innerHTML = product.svg;
+    } else {
+      detailImg.style.display = 'none';
+      detailEmoji.style.display = 'flex';
+      detailEmoji.textContent = product.emoji || 'ðŸ‘˜';
+    }
+
+    // Badge
+    const badgeEl = document.getElementById('detailBadge');
+    if (product.badge) {
+      badgeEl.textContent = product.badge;
+      badgeEl.style.display = 'inline-block';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+
+    // Variants
+    const variantsEl = document.getElementById('detailVariants');
+    const variantTagsEl = document.getElementById('variantTags');
+    if (product.variants && product.variants.length > 0) {
+      variantsEl.style.display = 'block';
+      variantTagsEl.innerHTML = product.variants.map(v => 
+        `<span class="variant-tag">${v}</span>`
+      ).join('');
+    } else {
+      variantsEl.style.display = 'none';
+    }
+
+    document.getElementById('productDetailPopup').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductDetail() {
+    document.getElementById('productDetailPopup').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function orderFromDetail() {
+    closeProductDetail();
+    setTimeout(() => {
+      const btn = document.querySelector(`[data-product-id="${currentDetailProduct.id}"] .wa-popup-trigger`);
+      if (btn) btn.click();
+    }, 300);
+  }
+
+  document.getElementById('productDetailPopup').addEventListener('click', function(e) {
+    if (e.target === this) closeProductDetail();
+  });
+
+  // WA Popup Logic
+  let currentProduct = { name: '', price: '', emoji: '' };
+
+  function openWaPopup(name, price, emoji, image, variants) {
+    currentProduct = { name, price, emoji };
+    document.getElementById('popupProductName').textContent = name;
+    document.getElementById('popupProductPrice').textContent = price;
+
+    const popupEmoji = document.getElementById('popupEmoji');
+    const popupImage = document.getElementById('popupImage');
+    if (image) {
+      popupImage.src = image;
+      popupImage.style.display = 'block';
+      popupEmoji.style.display = 'none';
+    } else {
+      popupImage.style.display = 'none';
+      popupEmoji.style.display = 'inline';
+      popupEmoji.textContent = emoji;
+    }
+
+    const variantGroup = document.getElementById('variantGroup');
+    const variantSelect = document.getElementById('waVariant');
+
+    if (variants && variants.length > 0) {
+      variantGroup.style.display = 'block';
+      variantSelect.innerHTML = '<option value="">Pilih Ukuran</option>';
+      variants.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v; opt.textContent = v;
+        variantSelect.appendChild(opt);
+      });
+    } else {
+      variantGroup.style.display = 'none';
+    }
+
+    document.getElementById('waPopup').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeWaPopup() {
+    document.getElementById('waPopup').classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('waForm').reset();
+  }
+
+  function sendToWA(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('waName').value;
+    const qty = document.getElementById('waQty').value;
+    const variant = document.getElementById('waVariant').value;
+    const note = document.getElementById('waNote').value;
+
+    let message = `Halo Ola Store! ðŸ‘‹%0A%0A`;
+    message += `Saya *${name}* ingin memesan:%0A`;
+    message += `ðŸ“¦ *${currentProduct.name}*%0A`;
+    message += `ðŸ’° ${currentProduct.price}%0A`;
+    message += `ðŸ”¢ Jumlah: ${qty}%0A`;
+    if (variant) message += `ðŸ“ Ukuran: ${variant}%0A`;
+    if (note) message += `ðŸ“ Catatan: ${note}%0A`;
+    message += `%0ATerima kasih! ðŸ™`;
+
+    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+    closeWaPopup();
+  }
+
+  document.getElementById('waPopup').addEventListener('click', function(e) {
+    if (e.target === this) closeWaPopup();
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.wa-popup-trigger').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const variants = JSON.parse(this.dataset.variants || '[]');
+        openWaPopup(
+          this.dataset.name,
+          this.dataset.price,
+          this.dataset.emoji,
+          this.dataset.image,
+          variants
+        );
+      });
+    });
+  });
+</script>
