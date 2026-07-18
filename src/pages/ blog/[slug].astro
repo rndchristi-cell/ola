@@ -4,8 +4,8 @@ import Layout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
   const allPosts = await Astro.glob('../../content/blog/*.md');
   
-  return allPosts.map(post => {
-    const slug = post.file.split('/').pop().replace('.md', '');
+  return allPosts.map((post, index) => {
+    const slug = post.url ? post.url.split('/').pop() : `post-${index}`;
     return {
       params: { slug },
       props: { post },
@@ -44,4 +44,3 @@ const { Content } = post;
     </div>
   </article>
 </Layout>
-
