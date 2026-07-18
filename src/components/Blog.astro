@@ -1,0 +1,23 @@
+---
+// Ambil semua post dari folder src/content/blog/
+const posts = await Astro.glob('../content/blog/*.md');
+---
+
+<section id="blog" class="py-20 px-4 bg-gray-900">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-white mb-8">Blog Ola Store</h2>
+    
+    <div class="grid gap-6">
+      {posts.map(post => (
+        <article class="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition">
+          <h3 class="text-xl font-semibold text-white mb-2">
+            <a href={post.url}>{post.frontmatter.title}</a>
+          </h3>
+          <p class="text-gray-400 text-sm mb-2">{post.frontmatter.date}</p>
+          <p class="text-gray-300">{post.frontmatter.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
