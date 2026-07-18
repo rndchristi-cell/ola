@@ -1,0 +1,24 @@
+---
+import site from '../data/site.json';
+---
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <h3>{site.reviews}</h3>
+      <p>Ulasan Google</p>
+    </div>
+    <div class="stat-item">
+      <h3>{site.rating}</h3>
+      <p>Rating Bintang</p>
+    </div>
+    <div class="stat-item">
+      <h3>{parseInt(new Date().getFullYear()) - parseInt(site.established)}+</h3>
+      <p>Tahun Berdiri</p>
+    </div>
+    <div class="stat-item">
+      <h3>100%</h3>
+      <p>Produk Lokal</p>
+    </div>
+  </div>
+</div>

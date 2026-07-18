@@ -1,0 +1,62 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Surjan Lurik Solo - Dewasa",
+      "price": 85000,
+      "desc": "Surjan Lurik dengan bahan kain tenun Lurik ATBM",
+      "badge": "BEST SELLER",
+      "emoji": "👘",
+      "hasVariants": true,
+        "variants": ["S", "M", "L", "XL", "Jumbo"]
+    },
+    {
+      "id": 2,
+      "name": "Kebaya Kutubaru Lurik  - Dewasa",
+      "price": 75000,
+      "desc": "Kebaya Kutubaru Motif Lurik - Tenun ATBM",
+      "badge": "BEST SELLER",
+      "emoji": "🥻",
+      "hasVariants": true,
+      "variants": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": 3,
+      "name": "Surjan Lurik - Anak",
+      "price": 55000,
+      "desc": "Surjan Lurik ukuran balita hingga remaja",
+      "badge": "",
+      "emoji": "👔",
+      "hasVariants": true,
+      "variants": ["M", "L", "XL", "XXL"]
+    },
+    {
+      "id": 4,
+      "name": "Kebaya Lurik - Anak",
+      "price": 55000,
+      "desc": "Kebaya Lurik Ukuran balita hingga remaja",
+      "badge": "",
+      "emoji": "👗",
+      "hasVariants": true,
+      "variants": ["S", "M", "L"]
+    },
+    {
+      "id": 5,
+      "name": "Kain Tenun Lurik ATBM",
+      "price": 95000,
+      "desc": "Kain Lurik Tenun ATBM / Tenun Tradisional",
+      "badge": "",
+      "emoji": "🧣",
+      "hasVariants": false
+    },
+    {
+      "id": 6,
+      "name": "Jarik Batik Solo",
+      "price": 80000,
+      "desc": "Pilihan Kain Jarik Solo dengan ragam pilihan motif batik tradisional",
+      "badge": "BEST CHOICE",
+      "emoji": "🎁",
+      "hasVariants": false
+    }
+  ]
+}

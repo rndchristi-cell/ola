@@ -1,0 +1,23 @@
+---
+import site from '../data/site.json';
+---
+
+<section class="about" id="tentang">
+  <div class="about-inner">
+    <div class="about-img">
+      <!-- GANTI FOTO: taruh gambar di public/images/about.webp -->
+      <img src="/images/about.webp" alt="Tentang Ola Store" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=font-size:4rem;>🏪</span>';" />
+    </div>
+    <div class="about-content">
+      <h2>Warisan Lurik dari Pasar Klewer</h2>
+      <p>{site.siteName} hadir di {site.location} sejak tahun {site.established}, menyediakan koleksi lurik dan busana Jawa berkualitas tinggi dari pengrajin lokal terbaik.</p>
+      <p>Setiap produk kami adalah hasil tangan pengrajin yang melestarikan warisan budaya Jawa. Kami percaya bahwa Lurik bukan sekadar kain, tapi cerita dan identitas.</p>
+      <div class="about-tags">
+        <span class="about-tag">🧵 100% Handmade</span>
+        <span class="about-tag">🇮🇩 Produk Lokal</span>
+        <span class="about-tag">♻️ Sustainable</span>
+        <span class="about-tag">⭐ Premium Quality</span>
+      </div>
+    </div>
+  </div>
+</section>

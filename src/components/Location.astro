@@ -1,0 +1,21 @@
+---
+import site from '../data/site.json';
+---
+
+<section class="location" id="lokasi">
+  <h2>Kunjungi Kami</h2>
+  <p class="location-sub">Datang langsung ke toko kami di Pasar Klewer Solo</p>
+  <div class="map-placeholder">
+    <!-- GANTI MAP: paste embed Google Maps di sini -->
+    <span>🗺️</span>
+    <p>Google Maps Embed</p>
+    <!-- Contoh: <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15819.98556175632!2d110.8267448!3d-7.5753702!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a16668982a14f%3A0x91712be42d7f3f55!2sOla%20Store%20-%20Lurik%20dan%20Busana%20Jawa!5e0!3m2!1sen!2sid!4v1784317086912!5m2!1sen!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe> -->
+  </div>
+  <div class="location-details">
+    <span>📍</span>
+    <div>
+      <strong>{site.location}</strong>
+      <small>{site.city}</small>
+    </div>
+  </div>
+</section>

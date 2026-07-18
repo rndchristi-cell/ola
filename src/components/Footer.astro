@@ -1,0 +1,34 @@
+---
+import site from '../data/site.json';
+---
+
+<footer class="footer" id="kontak">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>✦ {site.siteName}</h3>
+      <p>Toko lurik & busana Jawa asli dari Pasar Klewer Solo. Melestarikan warisan budaya melalui fashion berkualitas.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <a href="#home">Beranda</a>
+      <a href="#produk">Katalog</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#lokasi">Lokasi</a>
+    </div>
+    <div class="footer-col">
+      <h4>Sosial Media</h4>
+      <a href={`https://instagram.com/${site.instagram.replace('@','')}`} target="_blank">📷 Instagram {site.instagram}</a>
+      <a href={`https://facebook.com/${site.facebook}`} target="_blank">📘 Facebook</a>
+      <a href={`https://x.com/${site.twitter}`} target="_blank">🐦 X / Twitter</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kontak</h4>
+      <a href={`https://wa.me/${site.waNumber}`} target="_blank">💬 WhatsApp</a>
+      <a href={`mailto:${site.email}`}>📧 Email</a>
+      <a href={site.googleMapsUrl} target="_blank">📍 Google Maps</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © {new Date().getFullYear()} {site.siteName} — {site.location}. Dibuat dengan ❤️ di Solo.
+  </div>
+</footer>

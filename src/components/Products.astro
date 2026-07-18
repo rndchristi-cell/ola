@@ -1,0 +1,94 @@
+---
+import productsData from '../data/products.json';
+import site from '../data/site.json';
+
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0
+  }).format(price);
+};
+---
+
+<section class="products" id="produk">
+  <div class="section-header">
+    <h2>Katalog Produk</h2>
+    <p>Pilihan Lurik dan Busana Jawa terbaik dari Solo</p>
+  </div>
+  <div class="product-grid">
+    {productsData.products.map((product) => (
+      <div class="product-card" data-product-id={product.id}>
+        <div class="product-img">
+          <!-- GANTI FOTO: taruh gambar di public/images/produk-{id}.webp -->
+          <img 
+            src={`/images/produk-${product.id}.jpg`} 
+            alt={product.name}
+            style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;"
+            onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
+          />
+          <span class="emoji-fallback" style="display:none; font-size:2.5rem;">{product.emoji}</span>
+          {product.badge && <span class="product-badge">{product.badge}</span>}
+        </div>
+        <div class="product-info">
+          <h3>{product.name}</h3>
+          <p class="desc">{product.desc}</p>
+          <div class="product-footer">
+            <span class="price">{formatPrice(product.price)}</span>
+            <button 
+              class="wa-btn wa-popup-trigger"
+              data-name={product.name}
+              data-price={formatPrice(product.price)}
+              data-emoji={product.emoji}
+              data-variants={JSON.stringify(product.variants || [])}
+            >
+              💬 Pesan
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- WA Popup Form -->
+<div class="wa-popup-overlay" id="waPopup">
+  <div class="wa-popup">
+    <div class="wa-popup-header">
+      <h3>🛒 Pesan Produk</h3>
+      <button class="wa-popup-close" onclick="closeWaPopup()">&times;</button>
+    </div>
+    <div class="wa-popup-product">
+      <span class="emoji" id="popupEmoji">👘</span>
+      <div class="info">
+        <div class="name" id="popupProductName">Nama Produk</div>
+        <div class="price" id="popupProductPrice">Rp 0</div>
+      </div>
+    </div>
+    <form id="waForm" onsubmit="sendToWA(event)">
+      <div class="wa-form-group">
+        <label for="waName">Nama Lengkap *</label>
+        <input type="text" id="waName" name="name" placeholder="Masukkan nama Anda" required />
+      </div>
+      <div class="wa-form-row">
+        <div class="wa-form-group">
+          <label for="waQty">Jumlah *</label>
+          <input type="number" id="waQty" name="qty" value="1" min="1" required />
+        </div>
+        <div class="wa-form-group" id="variantGroup" style="display:none;">
+          <label for="waVariant">Ukuran</label>
+          <select id="waVariant" name="variant">
+            <option value="">Pilih Ukuran</option>
+          </select>
+        </div>
+      </div>
+      <div class="wa-form-group">
+        <label for="waNote">Catatan (opsional)</label>
+        <textarea id="waNote" name="note" placeholder="Warna, ukuran khusus, dll."></textarea>
+      </div>
+      <button type="submit" class="wa-submit">
+        💬 Kirim ke WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
