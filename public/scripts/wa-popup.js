@@ -51,7 +51,8 @@ function sendToWA(e) {
   if (variant) message += `📏 Ukuran: ${variant}%0A`;
   if (note) message += `📝 Catatan: ${note}%0A`;
   message += `%0ATerima kasih! 🙏`;
-https://wa.me/${waNumber}?text=${message} , '_blank');  
+window.location.href = `https://wa.me/${waNumber}?text=${message}`;
+  
   closeWaPopup();
 }
 
