@@ -41,7 +41,7 @@ function sendToWA(e) {
   const variant = document.getElementById('waVariant').value;
   const note = document.getElementById('waNote').value;
 
-  const waNumber = document.querySelector('.wa-popup-overlay').dataset.waNumber || '628xxxxxxxxxx';
+  const waNumber = document.querySelector('.wa-popup-overlay').dataset.waNumber || '6282226342474';
 
   let message = `Halo Ola Store! 👋%0A%0A`;
   message += `Saya *${name}* ingin memesan:%0A`;
