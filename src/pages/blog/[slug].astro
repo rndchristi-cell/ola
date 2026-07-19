@@ -17,8 +17,11 @@ const { post } = Astro.props;
     <h1 style="margin-top: 1rem;">{post.title}</h1>
     <p style="color: #777;"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
     {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />}
-    {post.content.map((paragraph) => (
-      <p style="line-height: 1.7; margin-bottom: 1rem;">{paragraph}</p>
-    ))}
+    {post.content.map((block) => {
+  if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
+  if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
+  if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />;
+  return <p style="line-height: 1.7; margin-bottom: 1rem;">{block.text}</p>;
+})}
   </main>
 </Layout>
