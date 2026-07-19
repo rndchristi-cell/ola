@@ -1,0 +1,198 @@
+---
+// src/components/Testimonials.astro
+// Cara pakai: import Testimonials from '../components/Testimonials.astro';
+//             taruh <Testimonials /> di halaman index kamu, misal setelah section Katalog
+
+interface Testimonial {
+  name: string;
+  location?: string;
+  rating: number; // 1-5
+  quote: string;
+  product?: string;
+  image?: string; // path ke foto pelanggan/screenshot WA, opsional
+}
+
+// EDIT DI SINI: ganti/tambah testimoni. Copy screenshot chat WA ke /public/images/testimoni-X.webp
+const testimonials: Testimonial[] = [
+  {
+    name: "Dyah S.",
+    location: "Solo",
+    rating: 5,
+    quote: "Admin ramah, pengiriman rapi & cepat. Bahan bagus sesuai harga. Beli banyak dapat free ongkir 😂 Terima kasih Ola Store",
+    product: "Surjan Lurik Solo - Dewasa",
+    image: "/images/testimoni-1.webp",
+  },
+  {
+    name: "Dwin Widya",
+    location: "Solo",
+    rating: 5,
+    quote: "Lagi cari seragam lurik anak. Nemuin di Instagram . Alhamdulillah, service sangat memuaskan. Penjelasan nya detil. Bahan bagus. Amanah. Semoga makin laris, makin byk pelanggan, tetap terus amanah.",
+    product: "Surjan Lurik Solo - Dewasa",
+    image: "/images/testimoni-2.webp",
+  },
+  {
+    name: "Agung Sulis",
+    location: "Wonosobo",
+    rating: 5,
+    quote: "Bahan nya tebel, warna nya juga bagus.
+Anak nya suka banget.",
+    product: "Lurik Anak.",
+    image: "/images/testimoni-3.webp",
+  },
+];
+---
+
+<section class="testimonials" id="testimoni">
+  <div class="testimonials-header">
+    <h2>Kata Pelanggan Kami</h2>
+    <p>Kepercayaan dari pelanggan yang sudah belanja lurik Solo asli di toko kami</p>
+    <div class="rating-badge">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">4.9 dari 225+ ulasan Google</span>
+    </div>
+  </div>
+
+  <div class="testimonials-grid">
+    {testimonials.map((t) => (
+      <div class="testimonial-card">
+        {t.image && (
+          <div class="testimonial-image">
+            <img src={t.image} alt={`Testimoni ${t.name}`} loading="lazy" />
+          </div>
+        )}
+        <div class="testimonial-stars">{"★".repeat(t.rating)}{"☆".repeat(5 - t.rating)}</div>
+        <p class="testimonial-quote">"{t.quote}"</p>
+        <div class="testimonial-footer">
+          <span class="testimonial-name">{t.name}</span>
+          {t.location && <span class="testimonial-location"> · {t.location}</span>}
+          {t.product && <span class="testimonial-product">{t.product}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="testimonials-cta">
+    <a href="https://maps.app.goo.gl/KKYBTMHtFMKXtvFS9" target="_blank" rel="noopener">
+      Lihat semua ulasan di Google →
+    </a>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: 4rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .testimonials-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .testimonials-header p {
+    font-family: 'Inter', sans-serif;
+    color: #6b6055;
+    max-width: 480px;
+    margin: 0 auto 1rem;
+  }
+
+  .rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fdf6ec;
+    border: 1px solid #e8dcc8;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .stars {
+    color: #d4a017;
+    letter-spacing: 1px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    background: #fff;
+    border: 1px solid #eee2d0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .testimonial-image img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.4rem;
+  }
+
+  .testimonial-stars {
+    color: #d4a017;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+  }
+
+  .testimonial-quote {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    color: #3a332c;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+
+  .testimonial-footer {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+  }
+
+  .testimonial-location {
+    color: #8a7f70;
+  }
+
+  .testimonial-product {
+    display: block;
+    color: #a08b5f;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+
+  .testimonials-cta {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .testimonials-cta a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #a05c2c;
+    text-decoration: none;
+  }
+
+  .testimonials-cta a:hover {
+    text-decoration: underline;
+  }
+</style>
+
