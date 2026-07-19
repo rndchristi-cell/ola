@@ -13,5 +13,33 @@
         "Jemur di tempat teduh, jangan langsung di bawah sinar matahari, supaya serat kain tidak getas dan warnanya tetap tahan lama."
       ]
     }
+    {
+  "id": 2,
+  "slug": "tips-padu-padan-surjan-lurik",
+  "title": "Tips Padu Padan Surjan Lurik untuk Acara Formal",
+  "excerpt": "Panduan memilih dan memadukan surjan lurik agar tampil rapi di berbagai acara, dari kondangan sampai acara adat.",
+  "date": "2026-07-20",
+  "image": "/images/produk-1.webp",
+  "content": [
+    { "type": "paragraph", "text": "Surjan lurik bukan sekadar baju adat — kalau dipadukan dengan tepat, potongan dan motifnya bisa tampil formal maupun kasual sesuai acaranya." },
+
+    { "type": "h2", "text": "Kenali Jenis Motif Lurik" },
+    { "type": "paragraph", "text": "Motif lurik garis vertikal klasik cocok untuk acara formal seperti pernikahan adat, sedangkan motif dengan warna lebih cerah lebih pas untuk acara santai." },
+
+    { "type": "image", "src": "/images/produk-1.webp", "alt": "Surjan lurik motif klasik" },
+
+    { "type": "h2", "text": "Padu Padan Bawahan" },
+    { "type": "paragraph", "text": "Surjan lurik paling umum dipadukan dengan jarik batik dan blangkon untuk acara adat Jawa yang lengkap." },
+
+    { "type": "h3", "text": "Untuk Acara Formal" },
+    { "type": "paragraph", "text": "Gunakan jarik motif klasik seperti Jarik Batik Solo dan kain polos gelap sebagai bawahan agar kesan formal lebih terasa." },
+
+    { "type": "h3", "text": "Untuk Acara Santai" },
+    { "type": "paragraph", "text": "Celana kain polos warna netral sudah cukup, tanpa perlu jarik, supaya tetap nyaman dipakai seharian." },
+
+    { "type": "h2", "text": "Kesimpulan" },
+    { "type": "paragraph", "text": "Satu surjan lurik bisa dipakai untuk banyak acara berbeda, asal jeli memilih bawahan dan aksesori yang menyesuaikan suasana acaranya." }
+  ]
+    }
   ]
 }
