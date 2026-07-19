@@ -52,7 +52,7 @@ function sendToWA(e) {
   if (note) message += `📝 Catatan: ${note}%0A`;
   message += `%0ATerima kasih! 🙏`;
 
-  window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+  window.open(`https://wa.me/${waNumber}?text=${message} ;
   closeWaPopup();
 }
 
