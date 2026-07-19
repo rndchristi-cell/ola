@@ -21,7 +21,7 @@ const { post } = Astro.props;
   if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
   if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
   if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />;
-  return <p style="line-height: 1.7; margin-bottom: 1rem;">{block.text}</p>;
+  return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={block.text} />;
 })}
   </main>
 </Layout>
