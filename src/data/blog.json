@@ -1,0 +1,17 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "slug": "cara-merawat-kain-lurik",
+      "title": "Cara Merawat Kain Lurik Agar Tetap Awet",
+      "excerpt": "Tips sederhana merawat kain tenun lurik ATBM supaya warnanya tidak cepat pudar dan seratnya tetap kuat.",
+      "date": "2026-07-19",
+      "image": "/images/produk-1.webp",
+      "content": [
+        "Kain lurik hasil tenun ATBM punya karakter serat yang berbeda dari kain pabrikan biasa, jadi cara mencucinya juga perlu disesuaikan.",
+        "Sebaiknya cuci dengan tangan menggunakan air dingin, hindari mesin cuci dan pemutih agar warna alami kain tidak cepat pudar.",
+        "Jemur di tempat teduh, jangan langsung di bawah sinar matahari, supaya serat kain tidak getas dan warnanya tetap tahan lama."
+      ]
+    }
+  ]
+}
