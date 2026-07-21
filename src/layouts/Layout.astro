@@ -1,7 +1,3 @@
-
-
-
-
 ---
 import '../styles/global.css';
 import SEOHead from '../components/SEOHead.astro';
@@ -27,5 +23,34 @@ const { title, description } = Astro.props;
 <body>
   <slot />
   <script src="/scripts/wa-popup.js" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const selectors = [
+        '.section-header',
+        '.product-card',
+        '.about-img',
+        '.about-content',
+        '.location-details',
+        '.map-placeholder',
+        '.stat-item',
+        '.footer-brand',
+        '.footer-col'
+      ];
+      const targets = document.querySelectorAll(selectors.join(','));
+      targets.forEach(el => el.classList.add('reveal'));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+      targets.forEach(el => observer.observe(el));
+    });
+  </script>
 </body>
 </html>
