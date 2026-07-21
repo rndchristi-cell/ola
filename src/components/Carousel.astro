@@ -1,0 +1,106 @@
+---
+export interface CarouselImage {
+  src: string;
+  caption?: string;
+}
+interface Props {
+  images: CarouselImage[];
+}
+const { images } = Astro.props as Props;
+---
+<div class="carousel-wrap">
+  <div class="carousel-track">
+    {images.map((img) => (
+      <div class="carousel-slide">
+        <img src={img.src} alt={img.caption || ''} loading="lazy" />
+        {img.caption && <p class="carousel-caption">{img.caption}</p>}
+      </div>
+    ))}
+  </div>
+  <div class="carousel-dots">
+    {images.map((_, i) => (
+      <button class="dot" data-index={i} aria-label={`Slide ${i + 1}`}></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.carousel-wrap').forEach((wrap) => {
+    const track = wrap.querySelector('.carousel-track');
+    const dots = wrap.querySelectorAll('.dot');
+    if (!track || dots.length === 0) return;
+
+    const setActive = (idx: number) => {
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    };
+
+    track.addEventListener('scroll', () => {
+      const slideWidth = (track as HTMLElement).clientWidth;
+      const idx = Math.round((track as HTMLElement).scrollLeft / slideWidth);
+      setActive(idx);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        const slideWidth = (track as HTMLElement).clientWidth;
+        (track as HTMLElement).scrollTo({ left: slideWidth * i, behavior: 'smooth' });
+      });
+    });
+
+    setActive(0);
+  });
+</script>
+
+<style>
+  .carousel-wrap {
+    width: 100%;
+  }
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: 12px;
+  }
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    text-align: center;
+  }
+  .carousel-slide img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+  .carousel-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+  }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(128, 128, 128, 0.4);
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .dot.active {
+    background: currentColor;
+    transform: scale(1.3);
+  }
+</style>

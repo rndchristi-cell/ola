@@ -1,0 +1,31 @@
+---
+import Carousel from './Carousel.astro';
+import gallery from '../data/gallery.json';
+---
+
+<section id="galeri" class="gallery-section">
+  <div class="gallery-inner">
+    <h2 class="gallery-title">Galeri</h2>
+    <p class="gallery-subtitle">Koleksi lurik kami dalam gambar</p>
+    <Carousel images={gallery.images} />
+  </div>
+</section>
+
+<style>
+  .gallery-section {
+    padding: 4rem 1rem;
+  }
+  .gallery-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .gallery-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .gallery-subtitle {
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+</style>

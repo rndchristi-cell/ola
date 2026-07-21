@@ -1,0 +1,8 @@
+{
+  "images": [
+    { "src": "/images/gallery-1.webp", "caption": "Lurik motif klasik" },
+    { "src": "/images/gallery-2.webp", "caption": "Lurik motif klasik" },
+    { "src": "/images/gallery-3.webp", "caption": "Lurik motif klasik" },
+    { "src": "/images/gallery-4.webp", "caption": "Lurik motif klasik" }
+  ]
+}
