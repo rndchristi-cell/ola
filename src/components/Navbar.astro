@@ -5,18 +5,56 @@ import site from '../data/site.json';
 <nav class="navbar">
   <div class="nav-inner">
     <a href="#home" class="logo">
-  <img src="/images/logo.webp" alt="ola Store Solo" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
-  {site.siteName}
-</a>
+      <img src="/images/logo.webp" alt="ola Store Solo" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      {site.siteName}
+    </a>
     <ul class="nav-links">
       <li><a href="#home">Beranda</a></li>
       <li><a href="#produk">Katalog</a></li>
-<li><a href="#galeri">Galeri</a></li>
+      <li><a href="#galeri">Galeri</a></li>
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#blog">Blog</a></li>
       <li><a href="#testimoni">Testimoni</a></li>
       <li><a href="#lokasi">Lokasi</a></li>
     </ul>
     <a href="#kontak" class="nav-cta">Hubungi Kami</a>
+
+    <button class="nav-burger" id="navBurger" aria-label="Buka menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <ul>
+      <li><a href="#home">Beranda</a></li>
+      <li><a href="#produk">Katalog</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#tentang">Tentang</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="#lokasi">Lokasi</a></li>
+      <li><a href="#kontak" class="nav-mobile-cta">Hubungi Kami</a></li>
+    </ul>
   </div>
 </nav>
+
+<script>
+  const burger = document.getElementById('navBurger');
+  const panel = document.getElementById('navMobilePanel');
+
+  burger?.addEventListener('click', () => {
+    const isOpen = panel?.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  panel?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      panel.classList.remove('open');
+      burger?.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
