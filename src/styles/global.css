@@ -690,3 +690,43 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px; /* biar ga ketutup navbar */
 }
+
+/* ===== BLOG DARK MODE (scoped, tidak pengaruh halaman lain) ===== */
+html[data-theme="dark"] .blog-page {
+  background: #2B211A;
+  color: #EDE0D3;
+  transition: background 0.3s, color 0.3s;
+}
+html[data-theme="dark"] .blog-page h1,
+html[data-theme="dark"] .blog-page h2,
+html[data-theme="dark"] .blog-page h3 {
+  color: #E8C9A0;
+}
+html[data-theme="dark"] .blog-page p,
+html[data-theme="dark"] .blog-page .post-date {
+  color: #C9B6A3;
+}
+html[data-theme="dark"] .blog-page a {
+  color: #D4A574;
+}
+html[data-theme="dark"] .blog-page img {
+  filter: brightness(0.85);
+}
+
+.theme-toggle-btn {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  float: right;
+}
+html[data-theme="dark"] .theme-toggle-btn {
+  background: #3A2C22;
+  border-color: #4a372b;
+  color: #EDE0D3;
+}

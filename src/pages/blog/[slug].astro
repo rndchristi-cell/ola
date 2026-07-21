@@ -12,10 +12,11 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 ---
 <Layout title={post.title} description={post.excerpt}>
-  <main style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
+  <main class="blog-page" style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <button id="theme-toggle" class="theme-toggle-btn">🌙 Dark</button>
     <a href="/#blog">← Kembali ke Blog</a>
     <h1 style="margin-top: 1rem;">{post.title}</h1>
-    <p style="color: #777;"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
+    <p class="post-date"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
     {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />}
     {post.content.map((block) => {
   if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
@@ -25,3 +26,28 @@ const { post } = Astro.props;
 })}
   </main>
 </Layout>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+      btn.textContent = '☀️ Light';
+    } else {
+      root.removeAttribute('data-theme');
+      btn.textContent = '🌙 Dark';
+    }
+  }
+
+  const saved = localStorage.getItem('blog-theme') || 'light';
+  applyTheme(saved);
+
+  btn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    localStorage.setItem('blog-theme', next);
+    applyTheme(next);
+  });
+</script>
