@@ -545,6 +545,20 @@ body {
 /* Smooth scroll offset for fixed navbar */
 section[id] { scroll-margin-top: 80px; }
 
+/* ===== SCROLL REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
 /* ===== PRODUCT IMAGE STYLES (3 versi icon) ===== */
 .product-image-file {
   width: 100%;
@@ -781,3 +795,4 @@ html[data-theme="dark"] .theme-toggle-btn {
   border-color: #4a372b;
   color: #EDE0D3;
 }
+
