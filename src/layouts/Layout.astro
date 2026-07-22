@@ -52,5 +52,31 @@ const { title, description } = Astro.props;
       targets.forEach(el => observer.observe(el));
     });
   </script>
+<script type="module">
+  import Lenis from 'https://cdn.jsdelivr.net/npm/lenis@1.1.20/+esm'
+  
+  const lenis = new Lenis({
+    autoRaf: true,
+    lerp: 0.08, // 0.05 = super licin framer, 0.1 = kalem
+  })
+
+  // auto smooth pas klik menu #galeri dll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href')
+      if(href.length > 1){
+        e.preventDefault()
+        const target = document.querySelector(href)
+        if(target) lenis.scrollTo(target, { offset: -20 })
+      }
+    })
+  })
+</script>
+
+<style>
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+</style>
 </body>
 </html>
