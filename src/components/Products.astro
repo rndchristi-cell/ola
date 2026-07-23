@@ -42,7 +42,10 @@ const formatPrice = (price: number) => {
         </div>
         <div class="product-info">
           <h3 onclick={`openProductDetail(${product.id})`}>{product.name}</h3>
-          <p class="desc">{product.desc}</p>
+          <p class="desc" onclick={`openProductDetail(${product.id})`}>{product.desc}</p>
+{product.desc && product.desc.length > 80 && (
+  <span class="read-more" onclick={`openProductDetail(${product.id})`}>Baca selengkapnya</span>
+)}
           <div class="product-footer">
             <span class="price">{formatPrice(product.price)}</span>
             <button 
