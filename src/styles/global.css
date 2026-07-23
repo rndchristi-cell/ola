@@ -238,6 +238,13 @@ body {
   color: var(--text-light); font-size: 1.05rem;
   max-width: 500px; margin: 0 auto;
 }
+.section-note {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  opacity: 0.75;
+  max-width: 480px;
+  margin: 8px auto 0;
+}
 
 /* 2 COLUMNS ON MOBILE */
 .product-grid {
