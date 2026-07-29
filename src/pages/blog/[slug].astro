@@ -29,13 +29,13 @@ if (block.type === 'list') {
   </Tag>;
 }
 if (block.type === 'table') {
-  return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0;">
+  return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;">
     <thead>
-      <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8;">{h}</th>)}</tr>
+      <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
     </thead>
     <tbody>
       {block.rows.map((row) => (
-        <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5;" set:html={cell} />)}</tr>
+        <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
       ))}
     </tbody>
   </table>;
