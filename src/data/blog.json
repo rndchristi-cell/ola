@@ -80,32 +80,64 @@
     },
     {
   "id": 2,
-  "slug": "tips-padu-padan-surjan-lurik",
-  "title": "Tips Padu Padan Surjan Lurik untuk Acara Formal",
-  "excerpt": "Panduan memilih dan memadukan surjan lurik agar tampil rapi di berbagai acara, dari kondangan sampai acara adat.",
-  "date": "2026-07-20",
-  "image": "/images/produk-1.webp",
+  "slug": "padu-padan-surjan-dan-kebaya-lurik",
+  "title": "Padu Padan Surjan dan Kebaya Lurik: Dari Anggun Tradisional hingga Gaya Casual Kekinian",
+  "excerpt": "Panduan inspirasi memadukan surjan dan kebaya lurik untuk acara formal tradisional maupun gaya casual modern kekinian.",
+  "date": "2026-07-30",
+  "image": "/images/padu-padan-lurik-solo.webp",
   "content": [
-    { "type": "paragraph", "text": "Surjan lurik bukan sekadar baju adat — kalau dipadukan dengan tepat, potongan dan motifnya bisa tampil formal maupun kasual sesuai acaranya." },
+    { "type": "paragraph", "text": "Di balik kesederhanaan motif garis-garisnya, kain lurik menyimpan deretan cerita dan filosofi mendalam. Kata <em>lurik</em> berasal dari bahasa Jawa <em>lirik</em> yang berarti garis-garis atau corak melintang. Konon, keberadaan kain tenun ini sudah tercatat dalam prasasti Jawa kuno sejak zaman Kerajaan Mataram Kuno. Bagi masyarakat Jawa, garis-garis sederhana pada lurik bukan sekadar ornamen visual, melainkan lambang keteguhan hati, kesederhanaan, dan petunjuk arah hidup menuju kebaikan." },
+    { "type": "paragraph", "text": "Dahulu, dua busana khas berbasis lurik yang sangat populer adalah <strong>Surjan</strong>—pakaian adat pria berpotongan khas dengan kancing di bagian leher—serta <strong>Kebaya Lurik</strong> untuk para wanita. Seiring berjalannya waktu, lurik tidak lagi hanya dipakai oleh kalangan bangsawan atau sesepuh saat ritual adat. Kini, lurik telah menjelma menjadi <em>fashion item</em> yang sangat fleksibel, elegan, dan penuh gaya untuk berbagai suasana." },
+    { "type": "paragraph", "text": "Berikut adalah panduan inspirasi padu padan surjan dan kebaya lurik, baik untuk acara formal bernuansa tradisional maupun gaya santai (<em>casual</em>) masa kini." },
 
-    { "type": "h2", "text": "Kenali Jenis Motif Lurik" },
-    { "type": "paragraph", "text": "Motif lurik garis vertikal klasik cocok untuk acara formal seperti pernikahan adat, sedangkan motif dengan warna lebih cerah lebih pas untuk acara santai." },
+    { "type": "h2", "text": "1. Padu Padan Surjan Lurik Pria" },
+    { "type": "paragraph", "text": "Pria yang mengenakan surjan lurik secara instan akan memancarkan kesan berwibawa, karismatik, sekaligus hangat." },
 
-    { "type": "image", "src": "/images/produk-1.webp", "alt": "Surjan lurik motif klasik" },
+    { "type": "h3", "text": "A. Tampil Formal & Tradisional" },
+    { "type": "list", "style": "unordered", "items": [
+      "<strong>Bawahan:</strong> Padukan surjan lurik dengan kain jarik batik bermotif klasik (seperti Parang, Sidomukti, atau Nitik) yang diwiron (dilipat rapi di bagian depan).",
+      "<strong>Aksesoris:</strong> Lengkapi dengan blangkon khas Jogja atau Solo yang senada, serta selop kulit warna hitam atau cokelat tua.",
+      "<strong>Kesan:</strong> Sangat cocok untuk menghadiri acara pernikahan adat, upacara kebudayaan, atau prosesi resmi."
+    ] },
 
-    { "type": "h2", "text": "Padu Padan Bawahan" },
-    { "type": "paragraph", "text": "Surjan lurik paling umum dipadukan dengan jarik batik dan blangkon untuk acara adat Jawa yang lengkap." },
+    { "type": "h3", "text": "B. Tampil Casual & Modern Kekinian" },
+    { "type": "list", "style": "unordered", "items": [
+      "<strong>Bawahan:</strong> Biarkan kancing surjan bagian bawah terbuka atau pakai surjan sebagai <em>outer</em> (luaran) yang dipadukan dengan kaos polos warna putih/hitam di dalamnya. Jodohkan dengan celana chino warna krem, olive, atau bahkan celana <em>jeans</em> berpotongan <em>straight cut</em>.",
+      "<strong>Alas Kaki:</strong> Gunakan <em>sneakers</em> putih polos atau sepatu <em>loafers</em> kulit santai.",
+      "<strong>Kesan:</strong> Memberikan tampilan <em>smart-casual</em> yang artistik, pas untuk <em>hangout</em> di kedai kopi, pameran seni, hingga kerja di kantor kreatif."
+    ] },
 
-    { "type": "h3", "text": "Untuk Acara Formal" },
-    { "type": "paragraph", "text": "Gunakan jarik motif klasik seperti Jarik Batik Solo dan kain polos gelap sebagai bawahan agar kesan formal lebih terasa." },
+    { "type": "h2", "text": "2. Padu Padan Kebaya Lurik Wanita" },
+    { "type": "paragraph", "text": "Kebaya lurik menawarkan siluet yang mempertegas keanggunan wanita Nusantara tanpa terkesan berlebihan." },
 
-    { "type": "h3", "text": "Untuk Acara Santai" },
-    { "type": "paragraph", "text": "Celana kain polos warna netral sudah cukup, tanpa perlu jarik, supaya tetap nyaman dipakai seharian." },
+    { "type": "h3", "text": "A. Tampil Formal & Anggun Tradisional" },
+    { "type": "list", "style": "unordered", "items": [
+      "<strong>Bawahan:</strong> Sandingkan kebaya lurik model Kutubaru dengan kain batik tulis atau tenun ikat berukuran panjang.",
+      "<strong>Aksesoris:</strong> Tambahkan stagen berwarna kontras di bagian pinggang untuk mempertegas bentuk tubuh, serta perhiasan bros etnik bernuansa emas atau perak di dada. Rambut digelung sanggul sederhana.",
+      "<strong>Alas Kaki:</strong> <em>High heels</em> atau selop berhias payet.",
+      "<strong>Kesan:</strong> Memancarkan aura klasik yang elegan dan penuh keanggunan alami saat menghadiri resepsi atau acara formal malam hari."
+    ] },
 
-    { "type": "h2", "text": "Kesimpulan" },
-    { "type": "paragraph", "text": "Satu surjan lurik bisa dipakai untuk banyak acara berbeda, asal jeli memilih bawahan dan aksesori yang menyesuaikan suasana acaranya." }
+    { "type": "h3", "text": "B. Tampil Casual & Chic Harian" },
+    { "type": "list", "style": "unordered", "items": [
+      "<strong>Bawahan:</strong> Jadikan kebaya lurik sebagai atasan santai yang dipadukan dengan celana kulot bahan linen, rok denim A-line, atau <em>boyfriend jeans</em>.",
+      "<strong>Styling:</strong> Buka seluruh kancing kebaya dan kenakan sebagai <em>outerwear</em> di atas <em>tank top</em> atau inner polos.",
+      "<strong>Alas Kaki & Aksesoris:</strong> Pakai <em>mules</em>, sandal tali, atau <em>sneakers</em>. Lengkapi dengan tas <em>totebag</em> atau <em>tote bag</em> bahan anyaman untuk memperkuat nuansa <em>earthy</em>.",
+      "<strong>Kesan:</strong> Tampil gaya, <em>chic</em>, dan nyaman tanpa kehilangan karakter etniknya—cocok untuk kuliah, jalan-jalan di akhir pekan, atau acara santai."
+    ] },
+
+    { "type": "h2", "text": "Rangkuman Panduan Padu Padan" },
+    { "type": "table", "headers": ["Jenis Busana", "Gaya Tradisional / Formal", "Gaya Casual / Modern"], "rows": [
+      ["<strong>Surjan Lurik (Pria)</strong>", "Kain jarik batik wiron + Blangkon + Selop kulit", "Celana Chino/Jeans + Kaos polos (sebagai outer) + <em>Sneakers</em>"],
+      ["<strong>Kebaya Lurik (Wanita)</strong>", "Kain batik panjang + Stagen & Bros etnik + Sanggul & Heels", "Celana Kulot/Jeans + <em>Tank top</em> (kebaya di-unbutton) + <em>Mules/Sneakers</em>"]
+    ] },
+
+    { "type": "h2", "text": "Mari Melestarikan Warisan Budaya Nusantara!" },
+    { "type": "paragraph", "text": "Memakai lurik hari ini bukan lagi berarti tampil kuno atau kaku. Sebaliknya, memadukan surjan dan kebaya lurik dengan gaya <em>casual</em> masa kini adalah cara terbaik kita merayakan kekayaan tradisi dalam denyut kehidupan modern." },
+    { "type": "paragraph", "text": "Lewat kreativitas padu padan—seperti memadukan kebaya lurik dengan <em>jeans</em> kesayangan atau menjadikan surjan sebagai <em>outer</em> santai—kita tidak hanya tampil beda dan <em>fashionable</em>, tetapi juga turut menjaga nafas para pengrajin tenun lokal agar terus berkarya." },
+    { "type": "paragraph", "text": "Mari terus bangga mengenakan warisan budaya bangsa. Tetaplah bereksplorasi dengan gaya kekinian, tanpa pernah melupakan nilai sejarah dan makna tradisional yang terpancar di balik setiap helai benang lurik Nusantara!" }
   ]
-    },
+   },
     {
   "id": 3,
   "slug": "sabun-lerak-pembersih-alami-warisan-nusantara",
