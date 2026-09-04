@@ -9,7 +9,14 @@
       "emoji": "",
       "image": "/images/surjan-lurik-solo.webp",
       "hasVariants": true,
-        "variants": ["S", "M", "L", "XL", "Jumbo"]
+      "variants": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "Jumbo"
+      ],
+      "slug": "surjan-lurik-solo-dewasa"
     },
     {
       "id": 2,
@@ -20,7 +27,13 @@
       "emoji": "",
       "image": "/images/produk-2.webp",
       "hasVariants": true,
-      "variants": ["S", "M", "L", "XL"]
+      "variants": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "slug": "kebaya-kutubaru-lurik-dewasa"
     },
     {
       "id": 3,
@@ -31,7 +44,13 @@
       "emoji": "",
       "image": "/images/produk-3.webp",
       "hasVariants": true,
-      "variants": ["M", "L", "XL", "XXL"]
+      "variants": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "slug": "surjan-lurik-anak"
     },
     {
       "id": 4,
@@ -42,7 +61,12 @@
       "emoji": "",
       "image": "/images/produk-4.webp",
       "hasVariants": true,
-      "variants": ["S", "M", "L"]
+      "variants": [
+        "S",
+        "M",
+        "L"
+      ],
+      "slug": "kebaya-lurik-anak"
     },
     {
       "id": 5,
@@ -52,7 +76,8 @@
       "badge": "",
       "emoji": "",
       "image": "/images/produk-5.webp",
-      "hasVariants": false
+      "hasVariants": false,
+      "slug": "kain-tenun-lurik-atbm"
     },
     {
       "id": 6,
@@ -62,7 +87,8 @@
       "badge": "BEST CHOICE",
       "emoji": "",
       "image": "/images/produk-6.webp",
-      "hasVariants": false
+      "hasVariants": false,
+      "slug": "jarik-batik-solo"
     }
   ]
 }

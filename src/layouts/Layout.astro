@@ -5,9 +5,14 @@ import SEOHead from '../components/SEOHead.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image, type, publishedTime, modifiedTime, author } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -18,37 +23,21 @@ const { title, description } = Astro.props;
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <SEOHead title={title} description={description} />
+  <SEOHead title={title} description={description} image={image} type={type} publishedTime={publishedTime} modifiedTime={modifiedTime} author={author} />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="manifest" href="/site.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 </head>
 <body>
   <slot />
   <script src="/scripts/wa-popup.js" defer></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const selectors = [
-        '.section-header',
-        '.product-card',
-        '.about-img',
-        '.about-content',
-        '.location-details',
-        '.map-placeholder',
-        '.stat-item',
-        '.footer-brand',
-        '.footer-col',
-        '.blog-card',
-        '.gallery-inner',
-        '.testimonials-header',
-        '.testimonial-card'
-      ];
+      const selectors = ['.section-header', '.product-card', '.about-img', '.about-content', '.location-details', '.map-placeholder', '.stat-item', '.footer-brand', '.footer-col', '.blog-card', '.gallery-inner', '.testimonials-header', '.testimonial-card'];
       const targets = document.querySelectorAll(selectors.join(','));
       targets.forEach(el => el.classList.add('reveal'));
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -57,7 +46,6 @@ const { title, description } = Astro.props;
           }
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
       targets.forEach(el => observer.observe(el));
     });
   </script>

@@ -10,62 +10,63 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const description = post.excerpt || `${post.title}. Baca panduan Ola Store tentang lurik Solo, busana Jawa, dan kain tenun tradisional.`;
+const cleanHtml = (value: string) => value.replace(/\\([*_])/g, '$1');
 ---
-<Layout title={post.title} description={post.excerpt}>
+<Layout title={post.title} description={description} image={post.image} type="article" publishedTime={post.date} modifiedTime={post.date}>
   <main class="blog-page" style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
-    <button id="theme-toggle" class="theme-toggle-btn">🌙 Dark</button>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button">🌙 Dark</button>
+    <nav aria-label="Breadcrumb" class="breadcrumbs">
+      <a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/#blog">Blog</a><span aria-hidden="true">/</span><span>{post.title}</span>
+    </nav>
     <a href="/#blog">← Kembali ke Blog</a>
-    <h1 style="margin-top: 1rem;">{post.title}</h1>
-    <p class="post-date"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
-    {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />}
-    {post.content.map((block) => {
-  if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
-  if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
-  if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />;
-if (block.type === 'list') {
-  const Tag = block.style === 'ordered' ? 'ol' : 'ul';
-  return <Tag style="margin: 0 0 1rem 1.25rem; line-height: 1.7;">
-    {block.items.map((item) => <li style="margin-bottom: 0.4rem;" set:html={item} />)}
-  </Tag>;
-}
-if (block.type === 'table') {
-  return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;">
-    <thead>
-      <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
-    </thead>
-    <tbody>
-      {block.rows.map((row) => (
-        <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
-      ))}
-    </tbody>
-  </table>;
-}
-  return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={block.text} />; 
-})}
+    <article>
+      <header>
+        <h1 style="margin-top: 1rem;">{post.title}</h1>
+        <p class="post-date"><time datetime={post.date}><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></time></p>
+      </header>
+      {post.image && <img src={post.image} alt={post.title} width="1200" height="800" style="width:100%; height:auto; border-radius: 8px; margin: 1.5rem 0;" />}
+      <div class="article-content">
+        {post.content.map((block) => {
+          if (block.type === 'paragraph' && block.text.trim() === '---') return null;
+          if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{cleanHtml(block.text)}</h2>;
+          if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{cleanHtml(block.text)}</h3>;
+          if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} loading="lazy" width="1200" height="800" style="width:100%; height:auto; border-radius: 8px; margin: 1.5rem 0;" />;
+          if (block.type === 'list') {
+            const Tag = block.style === 'ordered' ? 'ol' : 'ul';
+            return <Tag style="margin: 0 0 1rem 1.25rem; line-height: 1.7;">{block.items.map((item) => <li style="margin-bottom: 0.4rem;" set:html={cleanHtml(item)} />)}</Tag>;
+          }
+          if (block.type === 'table') {
+            return <div style="overflow-x:auto;"><table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;"><thead><tr>{block.headers.map((h) => <th scope="col" style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{cleanHtml(h)}</th>)}</tr></thead><tbody>{block.rows.map((row) => <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cleanHtml(cell)} />)}</tr>)}</tbody></table></div>;
+          }
+          return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={cleanHtml(block.text)} />;
+        })}
+      </div>
+    </article>
+    <aside class="article-cta" aria-label="Hubungi Ola Store">
+      <h2>Temukan Lurik dan Busana Jawa di Ola Store</h2>
+      <p>Lihat katalog produk atau kunjungi toko kami di Pasar Klewer Solo.</p>
+      <p><a href="/#produk">Lihat katalog</a> · <a href="/#lokasi">Lihat lokasi toko</a></p>
+    </aside>
   </main>
 </Layout>
-
 <script>
   const btn = document.getElementById('theme-toggle');
   const root = document.documentElement;
-
   function applyTheme(theme) {
-    if (theme === 'dark') {
-      root.setAttribute('data-theme', 'dark');
-      btn.textContent = '☀️ Light';
-    } else {
-      root.removeAttribute('data-theme');
-      btn.textContent = '🌙 Dark';
-    }
+    if (theme === 'dark') { root.setAttribute('data-theme', 'dark'); if (btn) btn.textContent = '☀️ Light'; }
+    else { root.removeAttribute('data-theme'); if (btn) btn.textContent = '🌙 Dark'; }
   }
-
   const saved = localStorage.getItem('blog-theme') || 'light';
   applyTheme(saved);
-
-  btn.addEventListener('click', () => {
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    const next = isDark ? 'light' : 'dark';
+  btn?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     localStorage.setItem('blog-theme', next);
     applyTheme(next);
   });
 </script>
+<style>
+  .breadcrumbs { display:flex; flex-wrap:wrap; gap:.45rem; margin:1rem 0; font-size:.9rem; color:#6b6257; }
+  .breadcrumbs span:last-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+  .article-cta { margin-top:3rem; padding:1.5rem; border-radius:12px; background:#f5f0e8; }
+</style>

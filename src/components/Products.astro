@@ -48,6 +48,7 @@ const formatPrice = (price: number) => {
 {product.desc && product.desc.length > 80 && (
   <span class="read-more" onclick={`openProductDetail(${product.id})`}>Baca selengkapnya</span>
 )}
+          <a class="product-detail-link" href={`/produk/${product.slug}/`}>Lihat detail produk</a>
           <div class="product-footer">
             <span class="price">{formatPrice(product.price)}</span>
             <button 

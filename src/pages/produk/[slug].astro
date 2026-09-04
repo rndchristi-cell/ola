@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import productsData from '../../data/products.json';
+import site from '../../data/site.json';
+
+export function getStaticPaths() {
+  return productsData.products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const description = `${product.name}. ${product.desc}. Pesan langsung dari Ola Store Solo di Pasar Klewer.`;
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  image: new URL(product.image, Astro.site).href,
+  description: product.desc,
+  brand: { '@type': 'Brand', name: site.siteName },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'IDR',
+    price: product.price,
+    availability: 'https://schema.org/InStock',
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    seller: { '@type': 'ClothingStore', name: site.siteName },
+  },
+};
+---
+<Layout title={`${product.name} | ${site.siteName}`} description={description} image={product.image}>
+  <main class="product-page">
+    <nav aria-label="Breadcrumb" class="breadcrumbs"><a href="/">Beranda</a><span>/</span><a href="/#produk">Katalog</a><span>/</span><span>{product.name}</span></nav>
+    <article class="product-detail-page">
+      <div class="product-detail-media"><img src={product.image} alt={product.name} width="1200" height="1200" /></div>
+      <div class="product-detail-copy">
+        <p class="eyebrow">Koleksi Ola Store Solo</p>
+        <h1>{product.name}</h1>
+        <p class="product-price">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(product.price)}</p>
+        <p>{product.desc}.</p>
+        {product.variants?.length > 0 && <p><strong>Ukuran tersedia:</strong> {product.variants.join(', ')}</p>}
+        <p><a class="product-order-button" href={`https://wa.me/${site.waNumber}?text=${encodeURIComponent(`${site.waMessage} ${product.name}`)}`} target="_blank" rel="noopener noreferrer">Pesan via WhatsApp</a></p>
+        <p><a href="/#produk">← Kembali ke katalog</a></p>
+      </div>
+    </article>
+  </main>
+</Layout>
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+<style>
+  .product-page { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .breadcrumbs { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:2rem; color:#6b6257; font-size:.9rem; }
+  .product-detail-page { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:3rem; align-items:center; }
+  .product-detail-media img { width:100%; height:auto; border-radius:12px; display:block; }
+  .eyebrow { text-transform:uppercase; letter-spacing:.08em; font-size:.8rem; }
+  .product-detail-copy h1 { margin:.5rem 0 1rem; }
+  .product-price { font-size:1.5rem; font-weight:700; }
+  .product-order-button { display:inline-block; padding:.8rem 1.1rem; border-radius:8px; background:#5c321c; color:#fff; text-decoration:none; font-weight:600; }
+  @media (max-width: 720px) { .product-detail-page { grid-template-columns:1fr; gap:1.5rem; } }
+</style>
