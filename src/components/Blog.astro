@@ -1,9 +1,39 @@
 ---
 import blogData from '../data/blog.json';
 
-const posts = blogData.posts.sort(
-  (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
-);
+const seoBySlug: Record<string, { title: string; excerpt: string }> = {
+  'cara-merawat-kain-lurik': {
+    title: 'Cara Merawat Kain Lurik agar Awet dan Tidak Mudah Luntur',
+    excerpt: 'Pelajari cara mencuci, menjemur, menyetrika, dan menyimpan kain lurik agar awet, warna tetap terjaga, dan tidak mudah rusak.',
+  },
+  'padu-padan-surjan-dan-kebaya-lurik': {
+    title: 'Padu Padan Surjan dan Kebaya Lurik untuk Gaya Modern',
+    excerpt: 'Inspirasi padu padan surjan dan kebaya lurik dengan jarik, celana, rok, dan aksesori untuk acara adat hingga gaya modern.',
+  },
+  'sabun-lerak-pembersih-alami-warisan-nusantara': {
+    title: 'Sabun Lerak untuk Kain Lurik: Manfaat dan Cara Pakai',
+    excerpt: 'Kenali manfaat sabun lerak untuk kain lurik, cara menggunakannya, dan kapan memilih lerak untuk mencuci kain tradisional.',
+  },
+  'menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern': {
+    title: 'Lurik ATBM: Sejarah, Proses Tenun, Filosofi, dan Nilai',
+    excerpt: 'Mengenal lurik ATBM, sejarah, filosofi motif, proses pembuatan, perbedaan dengan lurik mesin, dan nilai ekonominya.',
+  },
+  'kebaya-lurik-pesona-busana-tradisional-jawa-yang-tak-lekang-oleh-waktu': {
+    title: 'Kebaya Lurik: Model, Makna, dan Inspirasi Padu Padan',
+    excerpt: 'Mengenal kebaya lurik, makna kain lurik, model kutubaru, tips memilih, dan inspirasi padu padan untuk acara tradisional maupun modern.',
+  },
+  'surjan-lurik': {
+    title: 'Surjan Lurik: Makna, Ciri, dan Inspirasi Padu Padan',
+    excerpt: 'Mengenal Surjan Lurik, sejarah, ciri khas, filosofi, cara memilih, dan inspirasi padu padan untuk acara adat, formal, keluarga, dan gaya modern.',
+  },
+};
+
+const posts = blogData.posts
+  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+  .map((post) => ({
+    ...post,
+    seo: seoBySlug[post.slug] || { title: post.title, excerpt: post.excerpt },
+  }));
 ---
 
 <section id="blog" class="blog-section">
@@ -12,10 +42,10 @@ const posts = blogData.posts.sort(
     <div class="blog-grid">
       {posts.map((post) => (
         <article class="blog-card">
-          {post.image && <img src={post.image} alt={post.title} loading="lazy" />}
+          {post.image && <img src={post.image} alt={post.seo.title} loading="lazy" />}
           <div class="blog-card-body">
-            <h3>{post.title}</h3>
-            <p>{post.excerpt}</p>
+            <h3>{post.seo.title}</h3>
+            <p>{post.seo.excerpt}</p>
             <a href={`/blog/${post.slug}/`}>Baca selengkapnya</a>
           </div>
         </article>
@@ -29,18 +59,18 @@ const posts = blogData.posts.sort(
     padding: 4rem 1rem;
   }
   .blog-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-@media (min-width: 768px) {
-  .blog-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
   }
-}
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+  }
   .blog-card {
     border: 1px solid #e5e5e5;
     border-radius: 8px;
