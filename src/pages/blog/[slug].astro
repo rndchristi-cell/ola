@@ -2,33 +2,165 @@
 import Layout from '../../layouts/Layout.astro';
 import blogData from '../../data/blog.json';
 
-export async function getStaticPaths() {
-  return blogData.posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
-}
+const seoBySlug: Record<string, {
+  title: string;
+  description: string;
+  h2?: Record<string, string>;
+  products: { href: string; label: string }[];
+  articles: { href: string; label: string }[];
+}> = {
+  'cara-merawat-kain-lurik': {
+    title: 'Cara Merawat Kain Lurik agar Awet dan Tidak Mudah Luntur',
+    description: 'Pelajari cara mencuci, menjemur, menyetrika, dan menyimpan kain lurik agar awet, warna tetap terjaga, dan tidak mudah rusak.',
+    h2: {
+      '1. Perawatan Pertama Kali (Sebelum Digunakan)': 'Cara Menyiapkan Kain Lurik Sebelum Dicuci',
+      '2. Teknik Pencucian yang Benar': 'Cara Mencuci Kain Lurik agar Tidak Mudah Luntur',
+      '3. Proses Pengeringan dan Penjemuran': 'Cara Menjemur dan Mengeringkan Kain Lurik',
+      '4. Cara Menyetrika Kain Lurik': 'Cara Menyetrika Kain Lurik dengan Aman',
+      '5. Cara Menyimpan Kain Lurik': 'Cara Menyimpan Kain Lurik agar Tetap Awet',
+      "Rangkuman Do's & Don'ts": 'Panduan Singkat: Do’s dan Don’ts Merawat Kain Lurik',
+    },
+    products: [
+      { href: '/produk/kain-tenun-lurik-atbm/', label: 'Kain Tenun Lurik ATBM' },
+      { href: '/produk/surjan-lurik-solo-dewasa/', label: 'Surjan Lurik Solo - Dewasa' },
+    ],
+    articles: [
+      { href: '/blog/sabun-lerak-pembersih-alami-warisan-nusantara/', label: 'Sabun Lerak untuk Perawatan Kain Tradisional' },
+      { href: '/blog/menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern/', label: 'Mengenal Lurik ATBM' },
+    ],
+  },
+  'padu-padan-surjan-dan-kebaya-lurik': {
+    title: 'Padu Padan Surjan dan Kebaya Lurik untuk Gaya Modern',
+    description: 'Inspirasi padu padan surjan dan kebaya lurik dengan jarik, celana, rok, dan aksesori untuk acara adat hingga gaya modern.',
+    h2: {
+      '1. Padu Padan Surjan Lurik Pria': 'Padu Padan Surjan Lurik untuk Pria',
+      '2. Padu Padan Kebaya Lurik Wanita': 'Padu Padan Kebaya Lurik untuk Wanita',
+    },
+    products: [
+      { href: '/produk/surjan-lurik-solo-dewasa/', label: 'Surjan Lurik Solo - Dewasa' },
+      { href: '/produk/kebaya-kutubaru-lurik-dewasa/', label: 'Kebaya Kutubaru Lurik - Dewasa' },
+      { href: '/produk/surjan-lurik-anak/', label: 'Surjan Lurik - Anak' },
+      { href: '/produk/kebaya-lurik-anak/', label: 'Kebaya Lurik - Anak' },
+    ],
+    articles: [
+      { href: '/blog/surjan-lurik/', label: 'Mengenal Surjan Lurik' },
+      { href: '/blog/kebaya-lurik-pesona-busana-tradisional-jawa-yang-tak-lekang-oleh-waktu/', label: 'Mengenal Kebaya Lurik' },
+    ],
+  },
+  'sabun-lerak-pembersih-alami-warisan-nusantara': {
+    title: 'Sabun Lerak untuk Kain Lurik: Manfaat dan Cara Pakai',
+    description: 'Kenali manfaat sabun lerak untuk kain lurik, cara menggunakannya, dan kapan memilih lerak untuk mencuci kain tradisional.',
+    h2: {
+      '1. Apa Itu Buah Lerak dan Kandungan Utamanya?': 'Apa Itu Sabun Lerak dan Bagaimana Cara Kerjanya?',
+    },
+    products: [
+      { href: '/produk/kain-tenun-lurik-atbm/', label: 'Kain Tenun Lurik ATBM' },
+    ],
+    articles: [
+      { href: '/blog/cara-merawat-kain-lurik/', label: 'Cara Merawat Kain Lurik agar Awet' },
+      { href: '/blog/menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern/', label: 'Mengenal Lurik ATBM' },
+    ],
+  },
+  'menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern': {
+    title: 'Lurik ATBM: Sejarah, Proses Tenun, Filosofi, dan Nilai',
+    description: 'Mengenal lurik ATBM, sejarah, filosofi motif, proses pembuatan, perbedaan dengan lurik mesin, dan nilai ekonominya.',
+    h2: {
+      'Pendahuluan': 'Apa Itu Lurik ATBM?',
+      '1. Lintasan Sejarah dan Asal-Usul Lurik': 'Sejarah dan Asal-Usul Lurik ATBM',
+      '2. Filosofi dan Makna Simbolis Motif Lurik': 'Filosofi dan Makna Motif Lurik',
+      '3. Perbedaan Lurik ATBM vs. Lurik Mesin (ATM)': 'Perbedaan Lurik ATBM dan Lurik Mesin',
+      '4. Tahapan Rinci Proses Pembuatan Lurik ATBM': 'Proses Pembuatan Kain Lurik ATBM',
+      '5. Analisis Nilai Ekonomis dan Potensi Pasar': 'Nilai Ekonomi dan Potensi Pasar Lurik ATBM',
+      '6. Tantangan dan Strategi Pengembangan Masa Depan': 'Tantangan dan Masa Depan Lurik ATBM',
+    },
+    products: [
+      { href: '/produk/kain-tenun-lurik-atbm/', label: 'Kain Tenun Lurik ATBM' },
+      { href: '/produk/surjan-lurik-solo-dewasa/', label: 'Surjan Lurik Solo - Dewasa' },
+    ],
+    articles: [
+      { href: '/blog/cara-merawat-kain-lurik/', label: 'Cara Merawat Kain Lurik agar Awet' },
+      { href: '/blog/surjan-lurik/', label: 'Surjan Lurik dan Kain Lurik sebagai Bahan Surjan' },
+    ],
+  },
+  'kebaya-lurik-pesona-busana-tradisional-jawa-yang-tak-lekang-oleh-waktu': {
+    title: 'Kebaya Lurik: Model, Makna, dan Inspirasi Padu Padan',
+    description: 'Mengenal kebaya lurik, makna kain lurik, model kutubaru, tips memilih, dan inspirasi padu padan untuk acara tradisional maupun modern.',
+    h2: {
+      'Apa Itu Kebaya Lurik?': 'Apa Itu Kebaya Lurik?',
+      'Mengenal Kain Lurik, Kain Tradisional Bermotif Garis': 'Mengenal Kain Lurik sebagai Bahan Kebaya',
+      'Makna di Balik Motif dan Garis Lurik': 'Makna Motif dan Garis pada Kain Lurik',
+      'Mengapa Kebaya Lurik Tetap Menarik hingga Kini?': 'Mengapa Kebaya Lurik Tetap Relevan?',
+      'Inspirasi Padu Padan Kebaya Lurik': 'Inspirasi Padu Padan Kebaya Lurik',
+      'Tips Memilih Kebaya Lurik': 'Tips Memilih Kebaya Lurik',
+      'Kebaya Lurik sebagai Bentuk Apresiasi terhadap Produk Lokal': 'Kebaya Lurik dan Produk Lokal',
+      'Penutup': 'Kesimpulan',
+    },
+    products: [
+      { href: '/produk/kebaya-kutubaru-lurik-dewasa/', label: 'Kebaya Kutubaru Lurik - Dewasa' },
+      { href: '/produk/kebaya-lurik-anak/', label: 'Kebaya Lurik - Anak' },
+    ],
+    articles: [
+      { href: '/blog/padu-padan-surjan-dan-kebaya-lurik/', label: 'Padu Padan Surjan dan Kebaya Lurik' },
+      { href: '/blog/surjan-lurik/', label: 'Mengenal Surjan Lurik' },
+    ],
+  },
+  'surjan-lurik': {
+    title: 'Surjan Lurik: Makna, Ciri, dan Inspirasi Padu Padan',
+    description: 'Mengenal Surjan Lurik, sejarah, ciri khas, filosofi, cara memilih, dan inspirasi padu padan untuk acara adat, formal, keluarga, dan gaya modern.',
+    h2: {
+      'Apa Itu Surjan Lurik?': 'Apa Itu Surjan Lurik?',
+      'Sejarah Singkat Surjan dalam Budaya Jawa': 'Sejarah Singkat Surjan dalam Budaya Jawa',
+      'Mengenal Kain Lurik sebagai Bahan Surjan': 'Kain Lurik sebagai Bahan Surjan',
+      'Ciri Khas Surjan Lurik': 'Ciri Khas Surjan Lurik',
+      'Filosofi Surjan Lurik': 'Filosofi dan Makna Surjan Lurik',
+      'Inspirasi Padu Padan Surjan Lurik': 'Inspirasi Padu Padan Surjan Lurik',
+      'Tips Memilih Surjan Lurik': 'Tips Memilih Surjan Lurik',
+      'Cara Merawat Surjan Lurik': 'Cara Merawat Surjan Lurik',
+      'Surjan Lurik dan Pelestarian Produk Lokal': 'Surjan Lurik dan Produk Lokal',
+      'Penutup': 'Kesimpulan',
+    },
+    products: [
+      { href: '/produk/surjan-lurik-solo-dewasa/', label: 'Surjan Lurik Solo - Dewasa' },
+      { href: '/produk/surjan-lurik-anak/', label: 'Surjan Lurik - Anak' },
+    ],
+    articles: [
+      { href: '/blog/padu-padan-surjan-dan-kebaya-lurik/', label: 'Padu Padan Surjan dan Kebaya Lurik' },
+      { href: '/blog/menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern/', label: 'Mengenal Lurik ATBM' },
+    ],
+  },
+};
 
-const { post } = Astro.props;
+const seo = seoBySlug[post.slug] || {
+  title: post.title,
+  description: post.excerpt,
+  products: [],
+  articles: [],
+};
+
+const displayTitle = seo.title;
+const displayDescription = seo.description;
 ---
-<Layout title={post.title} description={post.excerpt} article={{ publishedTime: post.date }}>
+<Layout title={displayTitle} description={displayDescription} article={{ publishedTime: post.date }}>
   <main class="blog-page" style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
     <button id="theme-toggle" class="theme-toggle-btn">🌙 Dark</button>
 
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <a href="/">Beranda</a> <span aria-hidden="true">›</span>
       <a href="/#blog">Blog</a> <span aria-hidden="true">›</span>
-      <span>{post.title}</span>
+      <span>{displayTitle}</span>
     </nav>
 
     <a href="/#blog">← Kembali ke Blog</a>
-    <h1 style="margin-top: 1rem;">{post.title}</h1>
+    <h1 style="margin-top: 1rem;">{displayTitle}</h1>
     <p class="post-date"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
-    {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="eager" decoding="async" />}
+    {post.image && <img src={post.image} alt={displayTitle} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="eager" decoding="async" />}
     {post.content.map((block) => {
-      if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
+      if (block.type === 'h2') {
+        const heading = seo.h2?.[block.text] || block.text;
+        return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{heading}</h2>;
+      }
       if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
-      if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="lazy" decoding="async" />;
+      if (block.type === 'image') return <img src={block.src} alt={block.alt || displayTitle} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="lazy" decoding="async" />;
       if (block.type === 'list') {
         const Tag = block.style === 'ordered' ? 'ol' : 'ul';
         return <Tag style="margin: 0 0 1rem 1.25rem; line-height: 1.7;">
@@ -36,21 +168,69 @@ const { post } = Astro.props;
         </Tag>;
       }
       if (block.type === 'table') {
-        return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;">
+        return <table style="width:100%; border-collapse: collapse; margin:1.5rem 0; background:#fff; color:#222;">
           <thead>
-            <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
+            <tr>{block.headers.map((h) => <th style="text-align:left; padding:.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
           </thead>
           <tbody>
             {block.rows.map((row) => (
-              <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
+              <tr>{row.map((cell) => <td style="padding:.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
             ))}
           </tbody>
         </table>;
       }
-      return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={block.text} />;
+      return <p style="line-height:1.7; margin-bottom:1rem;" set:html={block.text} />;
     })}
+
+    {(seo.products.length > 0 || seo.articles.length > 0) && (
+      <aside class="article-links" aria-label="Konten terkait">
+        {seo.products.length > 0 && (
+          <section>
+            <h2>Produk Terkait</h2>
+            <ul>
+              {seo.products.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            </ul>
+          </section>
+        )}
+        {seo.articles.length > 0 && (
+          <section>
+            <h2>Baca Juga</h2>
+            <ul>
+              {seo.articles.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            </ul>
+          </section>
+        )}
+      </aside>
+    )}
   </main>
 </Layout>
+
+<style>
+  .article-links {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(245, 240, 232, 0.7);
+  }
+
+  .article-links section + section {
+    margin-top: 1.5rem;
+  }
+
+  .article-links h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.25rem;
+  }
+
+  .article-links ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .article-links li {
+    margin-bottom: 0.4rem;
+  }
+</style>
 
 <script>
   const btn = document.getElementById('theme-toggle');
