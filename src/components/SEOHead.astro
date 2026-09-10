@@ -1,77 +1,38 @@
 ---
-// src/components/SEOHead.astro
-// Import & pakai ini di <head> layout utama kamu (misal src/layouts/Layout.astro)
-// Contoh: import SEOHead from '../components/SEOHead.astro';
-//         <SEOHead title="..." description="..." />
-
 export interface Props {
   title?: string;
   description?: string;
-  image?: string; // path relatif, misal "/images/hero.webp"
+  image?: string;
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+  };
 }
 
 const {
   title = "Lurik Solo & Lurik Jawa Asli | Ola Store Pasar Klewer",
-  description = "Toko lurik Solo terpercaya sejak 2017. Jual lurik Jawa asli, surjan Lurik , kebaya Lurik, kain tenun Lurik ATBM di Pasar Klewer Solo.",
+  description = "Toko lurik Solo terpercaya sejak 2017. Jual lurik Jawa asli, surjan lurik, kebaya lurik, dan kain tenun lurik ATBM di Pasar Klewer Solo.",
   image = "/images/hero.webp",
+  article,
 } = Astro.props;
 
-// PENTING: astro.config.mjs wajib punya `site: 'https://ecclesiola.com'`
-// kalau belum ada, Astro.site bakal undefined dan semua URL di bawah ini rusak.
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(image, Astro.site);
-
-// Ganti/lengkapi sesuai produk asli di katalog kamu
-const products = [
-  {
-    name: "Surjan Lurik Solo - Dewasa",
-    image: "/images/produk-1.webp",
-    description: "Surjan Lurik dengan bahan kain tenun Lurik ATBM",
-    price: 85000,
-  },
-  {
-    name: "Kebaya Kutubaru Lurik - Dewasa",
-    image: "/images/produk-2.webp",
-    description: "Kebaya Kutubaru Motif Lurik - Tenun ATBM",
-    price: 75000,
-  },
-  {
-    name: "Surjan Lurik - Anak",
-    image: "/images/produk-3.webp",
-    description: "Surjan Lurik ukuran balita hingga remaja",
-    price: 55000,
-  },
-  {
-    name: "Kebaya Lurik - Anak",
-    image: "/images/produk-4.webp",
-    description: "Kebaya Lurik Ukuran balita hingga remaja",
-    price: 55000,
-  },
-  {
-    name: "Kain Tenun Lurik ATBM",
-    image: "/images/produk-5.webp",
-    description: "Kain Lurik Tenun ATBM / Tenun Tradisional",
-    price: 80000,
-  },
-  {
-    name: "Jarik Batik Solo",
-    image: "/images/produk-6.webp",
-    description: "Pilihan Kain Jarik Solo dengan ragam pilihan motif batik tradisional",
-    price: 80000,
-  },
-];
+const siteURL = Astro.site!;
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const ogImageURL = new URL(image, siteURL);
+const logoURL = new URL("/images/logo.webp", siteURL);
+const isArticle = Boolean(article);
 
 const localBusinessSchema = {
-  "@context": "https://schema.org",
   "@type": "ClothingStore",
+  "@id": `${siteURL.href}#business`,
   "name": "Ola Store Solo",
   "alternateName": "Ecclesiola",
+  "url": siteURL.href,
   "image": ogImageURL.href,
-  "@id": Astro.site?.href,
-  "url": Astro.site?.href,
+  "logo": logoURL.href,
   "telephone": "+6282226342474",
   "priceRange": "Rp 55.000 - Rp 85.000",
-  "description": description,
+  "description": "Toko lurik dan busana Jawa di Pasar Klewer Solo, menyediakan lurik tradisional, surjan, kebaya lurik, dan kain tenun ATBM.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Pasar Klewer Solo Lt.4 Blok C24",
@@ -85,17 +46,7 @@ const localBusinessSchema = {
     "latitude": -7.5753702,
     "longitude": 110.8267448,
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "225",
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "08:00",
-    "closes": "17:00",
-  },
+  "hasMap": "https://maps.app.goo.gl/KKYBTMHtFMKXtvFS9",
   "sameAs": [
     "https://instagram.com/ola.lurik",
     "https://facebook.com/olastoresolo",
@@ -103,54 +54,101 @@ const localBusinessSchema = {
   ],
 };
 
-const productSchemas = products.map((p) => ({
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": p.name,
-  "image": new URL(p.image, Astro.site).href,
-  "description": p.description,
-  "brand": {
-    "@type": "Brand",
-    "name": "Surjane Ola",
+const webPageSchema = {
+  "@type": isArticle ? "WebPage" : "WebPage",
+  "@id": `${canonicalURL.href}#webpage`,
+  "url": canonicalURL.href,
+  "name": title,
+  "description": description,
+  "inLanguage": "id-ID",
+  "isPartOf": { "@id": `${siteURL.href}#website` },
+  "about": { "@id": `${siteURL.href}#business` },
+};
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteURL.href}#website`,
+  "url": siteURL.href,
+  "name": "Ola Store Solo",
+  "inLanguage": "id-ID",
+  "publisher": { "@id": `${siteURL.href}#business` },
+};
+
+const articleSchema = article ? {
+  "@type": "BlogPosting",
+  "@id": `${canonicalURL.href}#article`,
+  "headline": title,
+  "description": description,
+  "image": [ogImageURL.href],
+  "datePublished": article.publishedTime,
+  "dateModified": article.modifiedTime || article.publishedTime,
+  "mainEntityOfPage": { "@id": `${canonicalURL.href}#webpage` },
+  "author": {
+    "@type": "Organization",
+    "name": "Ola Store Solo",
+    "url": siteURL.href,
   },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "IDR",
-    "price": p.price,
-    "availability": "https://schema.org/InStock",
-    "url": canonicalURL.href,
-    "seller": {
-      "@type": "Organization",
-      "name": "Ola Store Solo",
+  "publisher": { "@id": `${siteURL.href}#business` },
+  "inLanguage": "id-ID",
+} : null;
+
+const breadcrumbSchema = article ? {
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Beranda",
+      "item": siteURL.href,
     },
-  },
-}));
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": new URL("/#blog", siteURL).href,
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": title,
+      "item": canonicalURL.href,
+    },
+  ],
+} : null;
+
+const schemaGraph = [
+  { "@context": "https://schema.org", ...localBusinessSchema },
+  { "@context": "https://schema.org", ...websiteSchema },
+  { "@context": "https://schema.org", ...webPageSchema },
+  ...(articleSchema ? [{ "@context": "https://schema.org", ...articleSchema }] : []),
+  ...(breadcrumbSchema ? [{ "@context": "https://schema.org", ...breadcrumbSchema }] : []),
+];
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="author" content="Ola Store Solo" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={isArticle ? "article" : "website"} />
 <meta property="og:site_name" content="Ola Store Solo" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
+<meta property="og:image:alt" content={title} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:locale" content="id_ID" />
+{article && <meta property="article:published_time" content={article.publishedTime} />}
+{article?.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={title} />
 
-<!-- JSON-LD: LocalBusiness -->
-<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
-
-<!-- JSON-LD: Products -->
-{productSchemas.map((schema) => (
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-))}
-
+<!-- JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph })} />
