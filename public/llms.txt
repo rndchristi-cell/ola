@@ -5,7 +5,7 @@
 ## Tentang Ola Store Solo
 
 - [Beranda](https://ecclesiola.com/#home): Informasi utama tentang Ola Store Solo dan koleksi lurik serta busana Jawa.
-- [Tentang Kami](https://ecclesiola.com/#about): Profil Ola Store Solo, lokasi di Pasar Klewer Solo, dan informasi tentang produk serta pengrajin lokal.
+- [Tentang Kami](https://ecclesiola.com/#tentang): Profil Ola Store Solo, lokasi di Pasar Klewer Solo, dan informasi tentang produk serta pengrajin lokal.
 - [Katalog Produk](https://ecclesiola.com/#produk): Koleksi lurik dan busana Jawa yang ditawarkan Ola Store Solo.
 - [Blog](https://ecclesiola.com/#blog): Artikel tentang lurik, surjan, kebaya, kain tradisional, dan perawatan kain.
 
@@ -20,6 +20,7 @@
 
 ## Kontak
 
+- [Kontak](https://ecclesiola.com/#kontak): Informasi kontak dan cara menghubungi Ola Store Solo.
 - [WhatsApp](https://wa.me/6282226342474): Hubungi Ola Store Solo melalui WhatsApp untuk pertanyaan atau pemesanan.
 - [Instagram](https://www.instagram.com/ola.lurik/): Akun Instagram Ola Store Solo, @ola.lurik.
 - [Facebook](https://www.facebook.com/olastoresolo): Halaman Facebook Ola Store Solo.
