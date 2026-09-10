@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import productsData from '../../data/products.json';
+
+export async function getStaticPaths() {
+  return productsData.products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const canonical = new URL(`/produk/${product.slug}/`, Astro.site!);
+const imageURL = product.image ? new URL(product.image, Astro.site!).href : undefined;
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "image": imageURL ? [imageURL] : undefined,
+  "description": product.desc,
+  "brand": {
+    "@type": "Brand",
+    "name": "Surjane Ola",
+  },
+  "category": "Pakaian tradisional Jawa / Lurik",
+  "offers": {
+    "@type": "Offer",
+    "url": canonical.href,
+    "priceCurrency": "IDR",
+    "price": product.price,
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Ola Store Solo",
+    },
+  },
+};
+---
+
+<Layout
+  title={`${product.name} | Ola Store Solo`}
+  description={`${product.name}. ${product.desc}. Pesan dari Ola Store Solo, Pasar Klewer Solo.`}
+>
+  <main style="max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem;">
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem;">
+      <a href="/">Beranda</a> <span aria-hidden="true">›</span>
+      <a href="/#produk">Produk</a> <span aria-hidden="true">›</span>
+      <span>{product.name}</span>
+    </nav>
+
+    <article>
+      <div style="display:grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap:2rem; align-items:start;">
+        <div>
+          {product.image && <img src={product.image} alt={product.name} width="900" height="900" loading="eager" decoding="async" style="width:100%; height:auto; border-radius:12px;" />}
+        </div>
+        <div>
+          <p style="margin:0 0 .5rem; font-size:.9rem; opacity:.7;">Ola Store Solo · Pasar Klewer</p>
+          <h1 style="margin:.25rem 0 1rem;">{product.name}</h1>
+          {product.badge && <p><strong>{product.badge}</strong></p>}
+          <p style="font-size:1.4rem; font-weight:700;">Rp {new Intl.NumberFormat('id-ID').format(product.price)}</p>
+          <p style="line-height:1.7;">{product.desc}.</p>
+
+          {product.variants?.length > 0 && (
+            <div style="margin:1.5rem 0;">
+              <strong>Ukuran tersedia:</strong>
+              <ul>
+                {product.variants.map((variant) => <li>{variant}</li>)}
+              </ul>
+            </div>
+          )}
+
+          <a
+            href={`https://wa.me/6282226342474?text=${encodeURIComponent(`Halo Ola Store! Saya tertarik dengan ${product.name}.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="display:inline-block; padding:.9rem 1.2rem; border-radius:8px; text-decoration:none;"
+          >
+            Pesan via WhatsApp
+          </a>
+          <p style="margin-top:1.5rem;"><a href="/#produk">← Kembali ke katalog</a></p>
+        </div>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+
+<style>
+  @media (max-width: 700px) {
+    main article > div {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
