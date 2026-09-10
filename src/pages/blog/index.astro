@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import blogData from '../../data/blog.json';
+
+const posts = [...blogData.posts].sort(
+  (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
+);
+---
+<Layout
+  title="Semua Artikel Blog Lurik Solo | Ola Store"
+  description="Baca semua artikel Ola Store tentang lurik Solo, kain tenun ATBM, busana Jawa, perawatan kain, dan inspirasi gaya tradisional modern."
+>
+  <main class="blog-index">
+    <nav aria-label="Breadcrumb" class="breadcrumbs"><a href="/">Beranda</a><span>/</span><span>Blog</span></nav>
+    <header class="blog-index-header">
+      <p class="eyebrow">Wawasan Ola Store</p>
+      <h1>Semua Artikel Blog</h1>
+      <p>Temukan cerita, panduan, dan inspirasi seputar lurik Solo, kain tenun ATBM, serta busana Jawa.</p>
+    </header>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <article class="blog-card">
+          {post.image && <img src={post.image} alt={post.title} loading="lazy" width="1200" height="800" />}
+          <div class="blog-card-body">
+            <p class="post-date"><time datetime={post.date}>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</time></p>
+            <h2>{post.title}</h2>
+            <p>{post.excerpt || `Baca artikel Ola Store tentang ${post.title.toLowerCase()}.`}</p>
+            <a href={`/blog/${post.slug}/`}>Baca selengkapnya →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+</Layout>
+<style>
+  .blog-index { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .breadcrumbs { display:flex; gap:.45rem; margin-bottom:2rem; color:#6b6257; font-size:.9rem; }
+  .blog-index-header { max-width: 700px; margin-bottom: 2.5rem; }
+  .blog-index-header h1 { margin:.25rem 0 .75rem; }
+  .eyebrow { text-transform:uppercase; letter-spacing:.08em; font-size:.8rem; }
+  .blog-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem; }
+  .blog-card { border:1px solid #e5e5e5; border-radius:8px; overflow:hidden; }
+  .blog-card img { width:100%; height:180px; object-fit:cover; display:block; }
+  .blog-card-body { padding:1rem; }
+  .blog-card-body h2 { font-size:1.25rem; margin:.5rem 0; }
+  .post-date { font-size:.85rem; opacity:.7; }
+  .blog-card-body a { font-weight:600; text-decoration:none; }
+</style>
