@@ -11,37 +11,44 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 ---
-<Layout title={post.title} description={post.excerpt}>
+<Layout title={post.title} description={post.excerpt} article={{ publishedTime: post.date }}>
   <main class="blog-page" style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
     <button id="theme-toggle" class="theme-toggle-btn">🌙 Dark</button>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
+      <a href="/">Beranda</a> <span aria-hidden="true">›</span>
+      <a href="/#blog">Blog</a> <span aria-hidden="true">›</span>
+      <span>{post.title}</span>
+    </nav>
+
     <a href="/#blog">← Kembali ke Blog</a>
     <h1 style="margin-top: 1rem;">{post.title}</h1>
     <p class="post-date"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
-    {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />}
+    {post.image && <img src={post.image} alt={post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="eager" decoding="async" />}
     {post.content.map((block) => {
-  if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
-  if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
-  if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" />;
-if (block.type === 'list') {
-  const Tag = block.style === 'ordered' ? 'ol' : 'ul';
-  return <Tag style="margin: 0 0 1rem 1.25rem; line-height: 1.7;">
-    {block.items.map((item) => <li style="margin-bottom: 0.4rem;" set:html={item} />)}
-  </Tag>;
-}
-if (block.type === 'table') {
-  return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;">
-    <thead>
-      <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
-    </thead>
-    <tbody>
-      {block.rows.map((row) => (
-        <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
-      ))}
-    </tbody>
-  </table>;
-}
-  return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={block.text} />; 
-})}
+      if (block.type === 'h2') return <h2 style="margin-top: 2rem; margin-bottom: 0.75rem;">{block.text}</h2>;
+      if (block.type === 'h3') return <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">{block.text}</h3>;
+      if (block.type === 'image') return <img src={block.src} alt={block.alt || post.title} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="lazy" decoding="async" />;
+      if (block.type === 'list') {
+        const Tag = block.style === 'ordered' ? 'ol' : 'ul';
+        return <Tag style="margin: 0 0 1rem 1.25rem; line-height: 1.7;">
+          {block.items.map((item) => <li style="margin-bottom: 0.4rem;" set:html={item} />)}
+        </Tag>;
+      }
+      if (block.type === 'table') {
+        return <table style="width:100%; border-collapse: collapse; margin: 1.5rem 0; background: #fff; color: #222;">
+          <thead>
+            <tr>{block.headers.map((h) => <th style="text-align:left; padding:0.6rem; border-bottom:2px solid #ccc; background:#f5f0e8; color:#222;">{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {block.rows.map((row) => (
+              <tr>{row.map((cell) => <td style="padding:0.6rem; border-bottom:1px solid #e5e5e5; background:#fff; color:#222;" set:html={cell} />)}</tr>
+            ))}
+          </tbody>
+        </table>;
+      }
+      return <p style="line-height: 1.7; margin-bottom: 1rem;" set:html={block.text} />;
+    })}
   </main>
 </Layout>
 
