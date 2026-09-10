@@ -19,9 +19,10 @@ const productSchema = {
   "name": product.name,
   "image": imageURL ? [imageURL] : undefined,
   "description": product.desc,
+  "sku": String(product.id),
   "brand": {
     "@type": "Brand",
-    "name": "Surjane Ola",
+    "name": "Ola Store Solo",
   },
   "category": "Pakaian tradisional Jawa / Lurik",
   "offers": {
@@ -29,7 +30,6 @@ const productSchema = {
     "url": canonical.href,
     "priceCurrency": "IDR",
     "price": product.price,
-    "availability": "https://schema.org/InStock",
     "seller": {
       "@type": "Organization",
       "name": "Ola Store Solo",
