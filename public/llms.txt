@@ -6,11 +6,20 @@
 
 - [Beranda](https://ecclesiola.com/#home): Informasi utama tentang Ola Store Solo dan koleksi lurik serta busana Jawa.
 - [Tentang Kami](https://ecclesiola.com/#about): Profil Ola Store Solo, lokasi di Pasar Klewer Solo, dan informasi tentang produk serta pengrajin lokal.
-- [Produk](https://ecclesiola.com/#products): Koleksi produk lurik dan busana Jawa yang ditawarkan Ola Store Solo.
+- [Katalog Produk](https://ecclesiola.com/#produk): Koleksi lurik dan busana Jawa yang ditawarkan Ola Store Solo.
+- [Blog](https://ecclesiola.com/#blog): Artikel tentang lurik, surjan, kebaya, kain tradisional, dan perawatan kain.
+
+## Produk
+
+- [Surjan Lurik Solo - Dewasa](https://ecclesiola.com/produk/surjan-lurik-solo-dewasa/): Surjan lurik dewasa berbahan kain tenun Lurik ATBM dengan pilihan ukuran dan motif.
+- [Kebaya Kutubaru Lurik - Dewasa](https://ecclesiola.com/produk/kebaya-kutubaru-lurik-dewasa/): Kebaya kutubaru motif lurik berbahan tenun ATBM dengan pilihan ukuran.
+- [Surjan Lurik - Anak](https://ecclesiola.com/produk/surjan-lurik-anak/): Surjan lurik untuk balita hingga remaja dengan pilihan ukuran.
+- [Kebaya Lurik - Anak](https://ecclesiola.com/produk/kebaya-lurik-anak/): Kebaya lurik untuk anak dengan pilihan ukuran.
+- [Kain Tenun Lurik ATBM](https://ecclesiola.com/produk/kain-tenun-lurik-atbm/): Kain lurik tenun ATBM atau tenun tradisional.
+- [Jarik Batik Solo](https://ecclesiola.com/produk/jarik-batik-solo/): Kain jarik Solo dengan pilihan motif batik tradisional.
 
 ## Kontak
 
-- [Kontak](https://ecclesiola.com/#contact): Informasi untuk menghubungi dan mengunjungi Ola Store Solo.
 - [WhatsApp](https://wa.me/6282226342474): Hubungi Ola Store Solo melalui WhatsApp untuk pertanyaan atau pemesanan.
 - [Instagram](https://www.instagram.com/ola.lurik/): Akun Instagram Ola Store Solo, @ola.lurik.
 - [Facebook](https://www.facebook.com/olastoresolo): Halaman Facebook Ola Store Solo.
