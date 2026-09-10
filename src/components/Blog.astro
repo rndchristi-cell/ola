@@ -34,13 +34,26 @@ const posts = blogData.posts
     ...post,
     seo: seoBySlug[post.slug] || { title: post.title, excerpt: post.excerpt },
   }));
+
+// Beranda hanya menampilkan 4 artikel terbaru.
+const latestPosts = posts.slice(0, 4);
+const hasOlderPosts = posts.length > latestPosts.length;
 ---
 
 <section id="blog" class="blog-section">
   <div class="container">
-    <h2>Blog</h2>
+    <div class="blog-header">
+      <div>
+        <h2>Artikel Terbaru</h2>
+        <p class="blog-intro">Informasi, inspirasi, dan cerita seputar lurik dan busana Jawa.</p>
+      </div>
+      {hasOlderPosts && (
+        <a class="blog-all-link" href="/blog/">Lihat Semua Artikel <span aria-hidden="true">→</span></a>
+      )}
+    </div>
+
     <div class="blog-grid">
-      {posts.map((post) => (
+      {latestPosts.map((post) => (
         <article class="blog-card">
           {post.image && <img src={post.image} alt={post.seo.title} loading="lazy" />}
           <div class="blog-card-body">
@@ -51,12 +64,38 @@ const posts = blogData.posts
         </article>
       ))}
     </div>
+
+    {hasOlderPosts && (
+      <div class="blog-all-mobile">
+        <a class="blog-all-button" href="/blog/">Lihat Semua Artikel <span aria-hidden="true">→</span></a>
+      </div>
+    )}
   </div>
 </section>
 
 <style>
   .blog-section {
     padding: 4rem 1rem;
+  }
+  .blog-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .blog-intro {
+    margin: 0.5rem 0 0;
+    opacity: 0.8;
+  }
+  .blog-all-link,
+  .blog-all-button {
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .blog-all-link:hover,
+  .blog-all-button:hover {
+    text-decoration: underline;
   }
   .blog-grid {
     display: grid;
@@ -90,5 +129,28 @@ const posts = blogData.posts
     margin-top: 0.5rem;
     font-weight: 600;
     text-decoration: none;
+  }
+  .blog-all-mobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .blog-header {
+      display: block;
+    }
+    .blog-header .blog-all-link {
+      display: none;
+    }
+    .blog-all-mobile {
+      display: block;
+      text-align: center;
+      margin-top: 1.75rem;
+    }
+    .blog-all-button {
+      display: inline-block;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+    }
   }
 </style>
