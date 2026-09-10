@@ -155,11 +155,11 @@ const displayDescription = seo.description;
 
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
       <a href="/">Beranda</a> <span aria-hidden="true">›</span>
-      <a href="/#blog">Blog</a> <span aria-hidden="true">›</span>
+      <a href="/blog/">Blog</a> <span aria-hidden="true">›</span>
       <span>{displayTitle}</span>
     </nav>
 
-    <a href="/#blog">← Kembali ke Blog</a>
+    <a href="/blog/">← Kembali ke Blog</a>
     <h1 style="margin-top: 1rem;">{displayTitle}</h1>
     <p class="post-date"><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></p>
     {post.image && <img src={post.image} alt={displayTitle} style="width:100%; border-radius: 8px; margin: 1.5rem 0;" loading="eager" decoding="async" />}
