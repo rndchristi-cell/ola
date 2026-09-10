@@ -2,6 +2,7 @@
   "products": [
     {
       "id": 1,
+      "slug": "surjan-lurik-solo-dewasa",
       "name": "Surjan Lurik Solo - Dewasa",
       "price": 85000,
       "desc": "Surjan Lurik dengan bahan kain tenun Lurik ATBM. Tersedia pilihan motif dan warna",
@@ -9,11 +10,12 @@
       "emoji": "",
       "image": "/images/surjan-lurik-solo.webp",
       "hasVariants": true,
-        "variants": ["S", "M", "L", "XL", "Jumbo"]
+      "variants": ["S", "M", "L", "XL", "Jumbo"]
     },
     {
       "id": 2,
-      "name": "Kebaya Kutubaru Lurik  - Dewasa",
+      "slug": "kebaya-kutubaru-lurik-dewasa",
+      "name": "Kebaya Kutubaru Lurik - Dewasa",
       "price": 75000,
       "desc": "Kebaya Kutubaru Motif Lurik - Tenun ATBM. Tersedia pilihan motif dan warna",
       "badge": "BEST SELLER",
@@ -24,6 +26,7 @@
     },
     {
       "id": 3,
+      "slug": "surjan-lurik-anak",
       "name": "Surjan Lurik - Anak",
       "price": 55000,
       "desc": "Surjan Lurik ukuran balita hingga remaja",
@@ -35,6 +38,7 @@
     },
     {
       "id": 4,
+      "slug": "kebaya-lurik-anak",
       "name": "Kebaya Lurik - Anak",
       "price": 55000,
       "desc": "Kebaya Lurik Ukuran balita hingga remaja",
@@ -46,6 +50,7 @@
     },
     {
       "id": 5,
+      "slug": "kain-tenun-lurik-atbm",
       "name": "Kain Tenun Lurik ATBM",
       "price": 80000,
       "desc": "Kain Lurik Tenun ATBM / Tenun Tradisional",
@@ -56,6 +61,7 @@
     },
     {
       "id": 6,
+      "slug": "jarik-batik-solo",
       "name": "Jarik Batik Solo",
       "price": 80000,
       "desc": "Pilihan Kain Jarik Solo dengan ragam pilihan motif batik tradisional dan pilihan bahan kain serta kualitas proses Batik - Batik Cap atau Tangan",
