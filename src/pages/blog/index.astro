@@ -1,0 +1,160 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import blogData from '../../data/blog.json';
+
+const seoBySlug: Record<string, { title: string; excerpt: string }> = {
+  'cara-merawat-kain-lurik': {
+    title: 'Cara Merawat Kain Lurik agar Awet dan Tidak Mudah Luntur',
+    excerpt: 'Pelajari cara mencuci, menjemur, menyetrika, dan menyimpan kain lurik agar awet, warna tetap terjaga, dan tidak mudah rusak.',
+  },
+  'padu-padan-surjan-dan-kebaya-lurik': {
+    title: 'Padu Padan Surjan dan Kebaya Lurik untuk Gaya Modern',
+    excerpt: 'Inspirasi padu padan surjan dan kebaya lurik dengan jarik, celana, rok, dan aksesori untuk acara adat hingga gaya modern.',
+  },
+  'sabun-lerak-pembersih-alami-warisan-nusantara': {
+    title: 'Sabun Lerak untuk Kain Lurik: Manfaat dan Cara Pakai',
+    excerpt: 'Kenali manfaat sabun lerak untuk kain lurik, cara menggunakannya, dan kapan memilih lerak untuk mencuci kain tradisional.',
+  },
+  'menjelajahi-pesona-lurik-atbm-dari-lintasan-sejarah-makna-filosofis-hingga-nilai-ekonomis-di-era-modern': {
+    title: 'Lurik ATBM: Sejarah, Proses Tenun, Filosofi, dan Nilai',
+    excerpt: 'Mengenal lurik ATBM, sejarah, filosofi motif, proses pembuatan, perbedaan dengan lurik mesin, dan nilai ekonominya.',
+  },
+  'kebaya-lurik-pesona-busana-tradisional-jawa-yang-tak-lekang-oleh-waktu': {
+    title: 'Kebaya Lurik: Model, Makna, dan Inspirasi Padu Padan',
+    excerpt: 'Mengenal kebaya lurik, makna kain lurik, model kutubaru, tips memilih, dan inspirasi padu padan untuk acara tradisional maupun modern.',
+  },
+  'surjan-lurik': {
+    title: 'Surjan Lurik: Makna, Ciri, dan Inspirasi Padu Padan',
+    excerpt: 'Mengenal Surjan Lurik, sejarah, ciri khas, filosofi, cara memilih, dan inspirasi padu padan untuk acara adat, formal, keluarga, dan gaya modern.',
+  },
+};
+
+const posts = blogData.posts
+  .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+  .map((post) => ({
+    ...post,
+    seo: seoBySlug[post.slug] || { title: post.title, excerpt: post.excerpt },
+  }));
+---
+
+<Layout title="Semua Artikel | Ola Store">
+  <Navbar />
+
+  <main class="blog-page">
+    <section class="blog-list-section">
+      <div class="container">
+        <a class="back-link" href="/#blog">← Kembali ke Beranda</a>
+        <header class="blog-page-header">
+          <p class="eyebrow">Ola Store</p>
+          <h1>Semua Artikel</h1>
+          <p>Jelajahi artikel tentang lurik, surjan, kebaya, kain tradisional, perawatan kain, dan inspirasi busana Jawa.</p>
+        </header>
+
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <article class="blog-card">
+              {post.image && <img src={post.image} alt={post.seo.title} loading="lazy" />}
+              <div class="blog-card-body">
+                <time datetime={post.date}>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+                <h2>{post.seo.title}</h2>
+                <p>{post.seo.excerpt}</p>
+                <a href={`/blog/${post.slug}/`}>Baca selengkapnya →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .blog-list-section {
+    padding: 7rem 1rem 5rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .blog-page-header {
+    max-width: 760px;
+    margin-bottom: 2.5rem;
+  }
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .blog-page-header h1 {
+    margin: 0;
+  }
+  .blog-page-header > p:last-child {
+    margin-top: 0.75rem;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .blog-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    background: transparent;
+  }
+  .blog-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+  }
+  .blog-card-body {
+    padding: 1.15rem;
+  }
+  .blog-card-body time {
+    font-size: 0.82rem;
+    opacity: 0.65;
+  }
+  .blog-card-body h2 {
+    margin: 0.45rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.35;
+  }
+  .blog-card-body p {
+    line-height: 1.6;
+  }
+  .blog-card-body a {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .blog-card-body a:hover,
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .blog-list-section {
+      padding-top: 6rem;
+    }
+  }
+</style>
