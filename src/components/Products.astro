@@ -52,8 +52,10 @@ const formatPrice = (price: number) => {
             <span class="price">{formatPrice(product.price)}</span>
             <button 
               class="wa-btn wa-popup-trigger"
+              data-product-id={product.id}
               data-name={product.name}
               data-price={formatPrice(product.price)}
+              data-raw-price={product.price}
               data-emoji={product.emoji || '👘'}
               data-image={product.image || ''}
               data-variants={JSON.stringify(product.variants || [])}
@@ -224,10 +226,10 @@ const formatPrice = (price: number) => {
     if (e.target === this) closeProductDetail();
   });
 
-  let currentProduct = { name: '', price: '', emoji: '' };
+  let currentProduct = { name: '', price: '', emoji: '', id: null, rawPrice: 0 };
 
-  function openWaPopup(name, price, emoji, image, variants) {
-    currentProduct = { name, price, emoji };
+  function openWaPopup(name, price, emoji, image, variants, id, rawPrice) {
+    currentProduct = { name, price, emoji, id: Number(id), rawPrice: Number(rawPrice) || 0 };
     document.getElementById('popupProductName').textContent = name;
     document.getElementById('popupProductPrice').textContent = price;
 
@@ -268,6 +270,21 @@ const formatPrice = (price: number) => {
     document.getElementById('waForm').reset();
   }
 
+  function trackWhatsAppClick() {
+    if (typeof window.fbq !== 'function') return;
+
+    const eventParams = {
+      content_name: currentProduct.name,
+      content_ids: currentProduct.id ? [String(currentProduct.id)] : undefined,
+      content_type: 'product',
+      value: currentProduct.rawPrice || undefined,
+      currency: 'IDR'
+    };
+
+    window.fbq('track', 'Contact', eventParams);
+    window.fbq('trackCustom', 'WhatsAppClick', eventParams);
+  }
+
   function sendToWA(e) {
     e.preventDefault();
     const name = document.getElementById('waName').value;
@@ -284,6 +301,7 @@ const formatPrice = (price: number) => {
     if (note) message += `Catatan: ${note}%0A`;
     message += `%0ATerima kasih!`;
 
+    trackWhatsAppClick();
     window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
     closeWaPopup();
   }
@@ -301,7 +319,9 @@ const formatPrice = (price: number) => {
           this.dataset.price,
           this.dataset.emoji,
           this.dataset.image,
-          variants
+          variants,
+          this.dataset.productId,
+          this.dataset.rawPrice
         );
       });
     });
