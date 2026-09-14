@@ -91,7 +91,118 @@ const { title, description, article } = Astro.props;
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
       targets.forEach(el => observer.observe(el));
+
+      // Automatic previous/next navigation for individual blog articles.
+      const articleMain = document.querySelector('.blog-page');
+      const relatedLinks = document.querySelector('.article-links');
+      if (!articleMain || !relatedLinks || !window.location.pathname.startsWith('/blog/')) return;
+
+      const currentSlug = window.location.pathname
+        .replace(/^\/blog\//, '')
+        .replace(/\/$/, '');
+      if (!currentSlug) return;
+
+      fetch('/blog/')
+        .then(response => response.ok ? response.text() : Promise.reject(new Error('Blog index unavailable')))
+        .then(html => {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const cards = [...doc.querySelectorAll('.blog-card')];
+          const posts = cards.map(card => {
+            const link = card.querySelector('a[href*="/blog/"]');
+            const title = card.querySelector('h2')?.textContent?.trim() || '';
+            if (!link) return null;
+            const url = new URL(link.getAttribute('href'), window.location.origin);
+            const slug = url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+            return { slug, title, href: url.pathname };
+          }).filter(Boolean);
+
+          const currentIndex = posts.findIndex(post => post.slug === currentSlug);
+          if (currentIndex < 0) return;
+
+          // Blog index is newest-first. Therefore "previous" means the older article.
+          const previousPost = posts[currentIndex + 1];
+          const nextPost = posts[currentIndex - 1];
+          if (!previousPost && !nextPost) return;
+
+          const nav = document.createElement('nav');
+          nav.className = 'article-navigation';
+          nav.setAttribute('aria-label', 'Navigasi artikel');
+
+          if (previousPost) {
+            const link = document.createElement('a');
+            link.className = 'article-navigation-link previous';
+            link.href = previousPost.href;
+            link.innerHTML = `<span class="article-navigation-label">← Artikel Sebelumnya</span><strong>${previousPost.title}</strong>`;
+            nav.appendChild(link);
+          }
+
+          if (nextPost) {
+            const link = document.createElement('a');
+            link.className = 'article-navigation-link next';
+            link.href = nextPost.href;
+            link.innerHTML = `<span class="article-navigation-label">Artikel Berikutnya →</span><strong>${nextPost.title}</strong>`;
+            nav.appendChild(link);
+          }
+
+          relatedLinks.parentNode.insertBefore(nav, relatedLinks);
+        })
+        .catch(() => {
+          // Navigation is progressive enhancement; the article remains usable if it cannot load.
+        });
     });
   </script>
 </body>
 </html>
+
+<style>
+  .article-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 720px;
+    margin: 3rem auto 1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .article-navigation-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(120, 90, 50, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .article-navigation-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .article-navigation-link.next {
+    text-align: right;
+  }
+
+  .article-navigation-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.72;
+  }
+
+  .article-navigation-link strong {
+    line-height: 1.4;
+  }
+
+  @media (max-width: 640px) {
+    .article-navigation {
+      grid-template-columns: 1fr;
+    }
+
+    .article-navigation-link.next {
+      text-align: left;
+    }
+  }
+</style>
