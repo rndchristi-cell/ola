@@ -95,7 +95,7 @@ const { title, description, article } = Astro.props;
       // Automatic previous/next navigation for individual blog articles.
       const articleMain = document.querySelector('.blog-page');
       const relatedLinks = document.querySelector('.article-links');
-      if (!articleMain || !relatedLinks || !window.location.pathname.startsWith('/blog/')) return;
+      if (!articleMain || !window.location.pathname.startsWith('/blog/')) return;
 
       const currentSlug = window.location.pathname
         .replace(/^\/blog\//, '')
@@ -144,7 +144,11 @@ const { title, description, article } = Astro.props;
             nav.appendChild(link);
           }
 
-          relatedLinks.parentNode.insertBefore(nav, relatedLinks);
+          if (relatedLinks) {
+            relatedLinks.parentNode.insertBefore(nav, relatedLinks);
+          } else {
+            articleMain.appendChild(nav);
+          }
         })
         .catch(() => {
           // Navigation is progressive enhancement; the article remains usable if it cannot load.
