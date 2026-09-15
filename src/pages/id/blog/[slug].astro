@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import blogData from '../../data/blog.json';
+import Layout from '../../../layouts/Layout.astro';
+import blogData from '../../../data/blog.json';
 
 export async function getStaticPaths() {
   return blogData.posts.map((post) => ({

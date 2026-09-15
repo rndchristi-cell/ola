@@ -1,60 +1,29 @@
 ---
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
+const otherLang = lang === 'id' ? 'en' : 'id';
 ---
-
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="#home" class="logo">
-  <img src="/images/logo.webp" alt="ola Store Solo" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
-  {site.siteName}
-</a>
+    <a href="#home" class="logo"><img src="/images/logo.webp" alt="Ola Store Solo" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />{site.siteName}</a>
     <ul class="nav-links">
-      <li><a href="#home">Beranda</a></li>
-      <li><a href="#produk">Katalog</a></li>
-<li><a href="#galeri">Galeri</a></li>
-      <li><a href="#tentang">Tentang</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#testimoni">Testimoni</a></li>
-      <li><a href="#lokasi">Lokasi</a></li>
+      <li><a href="#home">{t.nav.home}</a></li><li><a href="#produk">{t.nav.catalog}</a></li><li><a href="#galeri">{t.nav.gallery}</a></li><li><a href="#tentang">{t.nav.about}</a></li><li><a href="#blog">{t.nav.blog}</a></li><li><a href="#testimoni">{t.nav.testimonials}</a></li><li><a href="#lokasi">{t.nav.location}</a></li>
     </ul>
-    <a href="#kontak" class="nav-cta">Hubungi Kami</a>
-
-    <button class="nav-burger" id="navBurger" aria-label="Buka menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <a href="#kontak" class="nav-cta">{t.nav.contact}</a>
+    <a class="language-switcher" href={`/${otherLang}/`} aria-label={`Switch to ${otherLang.toUpperCase()}`}>{t.language}</a>
+    <button class="nav-burger" id="navBurger" aria-label={lang === 'id' ? 'Buka menu' : 'Open menu'} aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-
-  <div class="nav-mobile-panel" id="navMobilePanel">
-    <ul>
-      <li><a href="#home">Beranda</a></li>
-      <li><a href="#produk">Katalog</a></li>
-      <li><a href="#galeri">Galeri</a></li>
-      <li><a href="#tentang">Tentang</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#testimoni">Testimoni</a></li>
-      <li><a href="#lokasi">Lokasi</a></li>
-      <li><a href="#kontak" class="nav-mobile-cta">Hubungi Kami</a></li>
-    </ul>
-  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel"><ul>
+    <li><a href="#home">{t.nav.home}</a></li><li><a href="#produk">{t.nav.catalog}</a></li><li><a href="#galeri">{t.nav.gallery}</a></li><li><a href="#tentang">{t.nav.about}</a></li><li><a href="#blog">{t.nav.blog}</a></li><li><a href="#testimoni">{t.nav.testimonials}</a></li><li><a href="#lokasi">{t.nav.location}</a></li><li><a href="#kontak" class="nav-mobile-cta">{t.nav.contact}</a></li><li><a href={`/${otherLang}/`} class="language-switcher">{t.language}</a></li>
+  </ul></div>
 </nav>
-
 <script>
-  const burger = document.getElementById('navBurger');
-  const panel = document.getElementById('navMobilePanel');
-
-  burger?.addEventListener('click', () => {
-    const isOpen = panel?.classList.toggle('open');
-    burger.classList.toggle('open', isOpen);
-    burger.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  panel?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      panel.classList.remove('open');
-      burger?.classList.remove('open');
-      burger?.setAttribute('aria-expanded', 'false');
-    });
-  });
+  const burger = document.getElementById('navBurger'); const panel = document.getElementById('navMobilePanel');
+  burger?.addEventListener('click', () => { const isOpen = panel?.classList.toggle('open'); burger.classList.toggle('open', isOpen); burger.setAttribute('aria-expanded', String(isOpen)); });
+  panel?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { panel.classList.remove('open'); burger?.classList.remove('open'); burger?.setAttribute('aria-expanded', 'false'); }));
 </script>
+<style>
+  .language-switcher { display:inline-flex; align-items:center; justify-content:center; min-width:2.25rem; font-weight:700; text-decoration:none; color:inherit; }
+</style>

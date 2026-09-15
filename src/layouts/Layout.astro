@@ -5,82 +5,40 @@ import SEOHead from '../components/SEOHead.astro';
 interface Props {
   title?: string;
   description?: string;
-  article?: {
-    publishedTime: string;
-    modifiedTime?: string;
-  };
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  lang?: 'id' | 'en';
 }
 
-const { title, description, article } = Astro.props;
+const { title, description, image, type, publishedTime, modifiedTime, author, lang = 'id' } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <SEOHead title={title} description={description} article={article} />
+  <SEOHead title={title} description={description} image={image} type={type} publishedTime={publishedTime} modifiedTime={modifiedTime} author={author} lang={lang} />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="manifest" href="/site.webmanifest" />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-874436Q4TS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-874436Q4TS');
-  </script>
-
-  <!-- Meta Pixel -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2124527044447656');
-    fbq('track', 'PageView');
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2124527044447656&ev=PageView&noscript=1" />
-  </noscript>
 </head>
 <body>
   <slot />
   <script src="/scripts/wa-popup.js" defer></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const selectors = [
-        '.section-header',
-        '.product-card',
-        '.about-img',
-        '.about-content',
-        '.location-details',
-        '.map-placeholder',
-        '.stat-item',
-        '.footer-brand',
-        '.footer-col',
-        '.blog-card',
-        '.gallery-inner',
-        '.testimonials-header',
-        '.testimonial-card'
-      ];
+      const selectors = ['.section-header', '.product-card', '.about-img', '.about-content', '.location-details', '.map-placeholder', '.stat-item', '.footer-brand', '.footer-col', '.blog-card', '.gallery-inner', '.testimonials-header', '.testimonial-card'];
       const targets = document.querySelectorAll(selectors.join(','));
       targets.forEach(el => el.classList.add('reveal'));
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -89,124 +47,8 @@ const { title, description, article } = Astro.props;
           }
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
       targets.forEach(el => observer.observe(el));
-
-      // Automatic previous/next navigation for individual blog articles.
-      const articleMain = document.querySelector('.blog-page');
-      const relatedLinks = document.querySelector('.article-links');
-      if (!articleMain || !window.location.pathname.startsWith('/blog/')) return;
-
-      const currentSlug = window.location.pathname
-        .replace(/^\/blog\//, '')
-        .replace(/\/$/, '');
-      if (!currentSlug) return;
-
-      fetch('/blog/')
-        .then(response => response.ok ? response.text() : Promise.reject(new Error('Blog index unavailable')))
-        .then(html => {
-          const doc = new DOMParser().parseFromString(html, 'text/html');
-          const cards = [...doc.querySelectorAll('.blog-card')];
-          const posts = cards.map(card => {
-            const link = card.querySelector('a[href*="/blog/"]');
-            const title = card.querySelector('h2')?.textContent?.trim() || '';
-            if (!link) return null;
-            const url = new URL(link.getAttribute('href'), window.location.origin);
-            const slug = url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
-            return { slug, title, href: url.pathname };
-          }).filter(Boolean);
-
-          const currentIndex = posts.findIndex(post => post.slug === currentSlug);
-          if (currentIndex < 0) return;
-
-          // Blog index is newest-first. Therefore "previous" means the older article.
-          const previousPost = posts[currentIndex + 1];
-          const nextPost = posts[currentIndex - 1];
-          if (!previousPost && !nextPost) return;
-
-          const nav = document.createElement('nav');
-          nav.className = 'article-navigation';
-          nav.setAttribute('aria-label', 'Navigasi artikel');
-
-          if (previousPost) {
-            const link = document.createElement('a');
-            link.className = 'article-navigation-link previous';
-            link.href = previousPost.href;
-            link.innerHTML = `<span class="article-navigation-label">← Artikel Sebelumnya</span><strong>${previousPost.title}</strong>`;
-            nav.appendChild(link);
-          }
-
-          if (nextPost) {
-            const link = document.createElement('a');
-            link.className = 'article-navigation-link next';
-            link.href = nextPost.href;
-            link.innerHTML = `<span class="article-navigation-label">Artikel Berikutnya →</span><strong>${nextPost.title}</strong>`;
-            nav.appendChild(link);
-          }
-
-          if (relatedLinks) {
-            relatedLinks.parentNode.insertBefore(nav, relatedLinks);
-          } else {
-            articleMain.appendChild(nav);
-          }
-        })
-        .catch(() => {
-          // Navigation is progressive enhancement; the article remains usable if it cannot load.
-        });
     });
   </script>
 </body>
 </html>
-
-<style>
-  .article-navigation {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    max-width: 720px;
-    margin: 3rem auto 1.5rem;
-    padding: 0 1.5rem;
-  }
-
-  .article-navigation-link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid rgba(120, 90, 50, 0.18);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.72);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .article-navigation-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  }
-
-  .article-navigation-link.next {
-    text-align: right;
-  }
-
-  .article-navigation-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    opacity: 0.72;
-  }
-
-  .article-navigation-link strong {
-    line-height: 1.4;
-  }
-
-  @media (max-width: 640px) {
-    .article-navigation {
-      grid-template-columns: 1fr;
-    }
-
-    .article-navigation-link.next {
-      text-align: left;
-    }
-  }
-</style>

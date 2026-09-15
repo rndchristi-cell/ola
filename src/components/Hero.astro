@@ -1,5 +1,8 @@
 ---
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 ---
 
 <section class="hero" id="home">
@@ -8,11 +11,11 @@ import site from '../data/site.json';
       <div class="hero-badge">
         <span>🏛️</span> {site.location}
       </div>
-      <h1>Toko Lurik Solo & Busana Jawa<br><span>Asli, Sejak 2017</span></h1>
-      <p>Toko lurik Solo terpercaya — koleksi lurik Jawa tradisional dan busana khas "Surjane Ola", berkualitas dari pengrajin lokal Kota Solo. Sentuhan warisan, gaya masa kini.</p>
+      <h1>{t.hero.title}<br><span>{t.hero.highlight}</span></h1>
+      <p>{t.hero.description}</p>
       <div class="hero-buttons">
-        <a href="#produk" class="btn-primary">Lihat Katalog →</a>
-        <a href={`https://wa.me/${site.waNumber}`} class="btn-secondary" target="_blank">💬 Chat WA</a>
+        <a href="#produk" class="btn-primary">{t.hero.catalog}</a>
+        <a href={`https://wa.me/${site.waNumber}`} class="btn-secondary" target="_blank">💬 {t.hero.chat}</a>
       </div>
     </div>
     <div class="hero-image">
@@ -25,7 +28,7 @@ import site from '../data/site.json';
         </div>
       </div>
       <div class="floating-tag tag-1">⭐ {site.rating} Rating</div>
-      <div class="floating-tag tag-2">✅ {site.reviews} Ulasan</div>
+      <div class="floating-tag tag-2">✅ {site.reviews} {t.stats.reviews}</div>
     </div>
   </div>
 </section>

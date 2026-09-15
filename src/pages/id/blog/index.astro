@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import blogData from '../../data/blog.json';
+import Layout from '../../../layouts/Layout.astro';
+import blogData from '../../../data/blog.json';
 
 const posts = [...blogData.posts].sort(
   (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()

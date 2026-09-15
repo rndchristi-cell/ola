@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import blogData from '../../data/blog.json';
+import Layout from '../../../layouts/Layout.astro';
+import blogData from '../../../data/blog.en.json';
 
 export async function getStaticPaths() {
   return blogData.posts.map((post) => ({
@@ -10,20 +10,20 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const description = post.excerpt || `${post.title}. Baca panduan Ola Store tentang lurik Solo, busana Jawa, dan kain tenun tradisional.`;
+const description = post.excerpt || `${post.title}. Read the Ola Store guide to Solo lurik, Javanese apparel, and traditional handwoven fabric.`;
 const cleanHtml = (value: string) => value.replace(/\\([*_])/g, '$1');
 ---
-<Layout title={post.title} description={description} image={post.image} type="article" publishedTime={post.date} modifiedTime={post.date}>
+<Layout lang="en" title={post.title} description={description} image={post.image} type="article" publishedTime={post.date} modifiedTime={post.date}>
   <main class="blog-page" style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem;">
     <button id="theme-toggle" class="theme-toggle-btn" type="button">🌙 Dark</button>
     <nav aria-label="Breadcrumb" class="breadcrumbs">
-      <a href="/">Beranda</a><span aria-hidden="true">/</span><a href="/#blog">Blog</a><span aria-hidden="true">/</span><span>{post.title}</span>
+      <a href="/en/">Home</a><span aria-hidden="true">/</span><a href="/en/blog/">Blog</a><span aria-hidden="true">/</span><span>{post.title}</span>
     </nav>
-    <a href="/#blog">← Kembali ke Blog</a>
+    <a href="/en/blog/">← Back to Blog</a>
     <article>
       <header>
         <h1 style="margin-top: 1rem;">{post.title}</h1>
-        <p class="post-date"><time datetime={post.date}><em>{new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</em></time></p>
+        <p class="post-date"><time datetime={post.date}><em>{new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</em></time></p>
       </header>
       {post.image && <img src={post.image} alt={post.title} width="1200" height="800" style="width:100%; height:auto; border-radius: 8px; margin: 1.5rem 0;" />}
       <div class="article-content">
@@ -43,10 +43,10 @@ const cleanHtml = (value: string) => value.replace(/\\([*_])/g, '$1');
         })}
       </div>
     </article>
-    <aside class="article-cta" aria-label="Hubungi Ola Store">
-      <h2>Temukan Lurik dan Busana Jawa di Ola Store</h2>
-      <p>Lihat katalog produk atau kunjungi toko kami di Pasar Klewer Solo.</p>
-      <p><a href="/#produk">Lihat katalog</a> · <a href="/#lokasi">Lihat lokasi toko</a></p>
+    <aside class="article-cta" aria-label="Contact Ola Store">
+      <h2>Discover Lurik and Javanese Apparel at Ola Store</h2>
+      <p>Browse our catalog or visit our store at Pasar Klewer Solo.</p>
+      <p><a href="/en/#produk">View catalog</a> · <a href="/en/#lokasi">View store location</a></p>
     </aside>
   </main>
 </Layout>
