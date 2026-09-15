@@ -1,8 +1,10 @@
 ---
-import blogData from '../data/blog.json';
+import idBlogData from '../data/blog.json';
+import enBlogData from '../data/blog.en.json';
 import { getTranslations, type Language } from '../data/i18n';
 const { lang = 'id' } = Astro.props as { lang?: Language };
 const t = getTranslations(lang);
+const blogData = lang === 'en' ? enBlogData : idBlogData;
 
 const posts = [...blogData.posts].sort(
   (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()

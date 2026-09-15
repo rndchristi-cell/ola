@@ -3,6 +3,9 @@ import site from '../data/site.json';
 import { getTranslations, type Language } from '../data/i18n';
 const { lang = 'id' } = Astro.props as { lang?: Language };
 const t = getTranslations(lang);
+const address = lang === 'en'
+  ? { location: 'Pasar Klewer Solo 4th Floor, Block C24', city: 'Surakarta, Central Java' }
+  : { location: site.location, city: site.city };
 ---
 
 <section class="location" id="lokasi">
@@ -22,8 +25,8 @@ const t = getTranslations(lang);
   <div class="location-details">
     <span>📍</span>
     <div>
-      <strong>{site.location}</strong>
-      <small>{site.city}</small>
+      <strong>{address.location}</strong>
+      <small>{address.city}</small>
     </div>
   </div>
 </section>
