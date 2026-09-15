@@ -136,7 +136,7 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
     <form id="waForm" onsubmit="sendToWA(event)">
       <div class="wa-form-group">
         <label for="waName">{lang === 'id' ? 'Nama Lengkap *' : 'Full Name *'}</label>
-        <input type="text" id="waName" name="name" placeholder="{lang === 'id' ? 'Masukkan nama Anda' : 'Enter your name'}" required />
+        <input type="text" id="waName" name="name" placeholder={lang === 'id' ? 'Masukkan nama Anda' : 'Enter your name'} required />
       </div>
       <div class="wa-form-row">
         <div class="wa-form-group">
@@ -152,7 +152,7 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
       </div>
       <div class="wa-form-group">
         <label for="waNote">{lang === 'id' ? 'Catatan (opsional)' : 'Notes (optional)'}</label>
-        <textarea id="waNote" name="note" placeholder="{lang === 'id' ? 'Warna, ukuran khusus, dll.' : 'Color, special size, etc.'}"></textarea>
+        <textarea id="waNote" name="note" placeholder={lang === 'id' ? 'Warna, ukuran khusus, dll.' : 'Color, special size, etc.'}></textarea>
       </div>
 <p class="wa-notice">{t.products.notice}</p>
 <button type="submit" class="wa-submit">
@@ -165,7 +165,7 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
   </div>
 </div>
 
-<script define:vars={{ products: productsData.products, waNumber: site.waNumber, displayCurrency: lang === 'en' ? 'USD' : 'IDR', idrPerUsd: currencyConfig.idrPerUsd }}>
+<script define:vars={{ products: productsData.products, waNumber: site.waNumber, displayCurrency: lang === 'en' ? 'USD' : 'IDR', idrPerUsd: currencyConfig.idrPerUsd, chooseSizeLabel: t.products.chooseSize, language: lang }}>
   let currentDetailProduct = null;
 
   function openProductDetail(productId) {
@@ -260,7 +260,7 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
 
     if (variants && variants.length > 0) {
       variantGroup.style.display = 'block';
-      variantSelect.innerHTML = '<option value="">{t.products.chooseSize}</option>';
+      variantSelect.innerHTML = `<option value="">${chooseSizeLabel}</option>`;
       variants.forEach(v => {
         const opt = document.createElement('option');
         opt.value = v; opt.textContent = v;
@@ -287,14 +287,17 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
     const variant = document.getElementById('waVariant').value;
     const note = document.getElementById('waNote').value;
 
-    let message = `Halo Ola Store!%0A%0A`;
-    message += `Saya *${name}* ingin memesan:%0A`;
+    const labels = language === 'en'
+      ? { greeting: 'Hello Ola Store!', intent: 'I would like to order:', quantity: 'Quantity', size: 'Size', notes: 'Notes', thanks: 'Thank you!' }
+      : { greeting: 'Halo Ola Store!', intent: 'Saya ingin memesan:', quantity: 'Jumlah', size: 'Ukuran', notes: 'Catatan', thanks: 'Terima kasih!' };
+    let message = `${labels.greeting}%0A%0A`;
+    message += `${labels.intent}%0A`;
     message += `*${currentProduct.name}*%0A`;
     message += `${currentProduct.price}%0A`;
-    message += `Jumlah: ${qty}%0A`;
-    if (variant) message += `Ukuran: ${variant}%0A`;
-    if (note) message += `Catatan: ${note}%0A`;
-    message += `%0ATerima kasih!`;
+    message += `${labels.quantity}: ${qty}%0A`;
+    if (variant) message += `${labels.size}: ${variant}%0A`;
+    if (note) message += `${labels.notes}: ${note}%0A`;
+    message += `%0A${labels.thanks}`;
 
     window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
     closeWaPopup();
