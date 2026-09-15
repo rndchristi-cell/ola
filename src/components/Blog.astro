@@ -7,7 +7,7 @@ const t = getTranslations(lang);
 const posts = [...blogData.posts].sort(
   (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
 );
-const featuredPosts = posts.slice(0, 3);
+const featuredPosts = posts.slice(0, 4);
 ---
 
 <section id="blog" class="blog-section">

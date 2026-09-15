@@ -3,6 +3,10 @@
 // Cara pakai: import Testimonials from '../components/Testimonials.astro';
 //             taruh <Testimonials /> di halaman index kamu, misal setelah section Katalog
 
+import { type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const isEnglish = lang === 'en';
+
 interface Testimonial {
   name: string;
   location?: string;
@@ -43,11 +47,11 @@ const testimonials: Testimonial[] = [
 
 <section class="testimonials" id="testimoni">
   <div class="testimonials-header">
-    <h2>Kata Pelanggan Kami</h2>
-    <p>Kepercayaan dari pelanggan yang sudah belanja lurik Solo asli di toko kami</p>
+    <h2>{isEnglish ? 'What Our Customers Say' : 'Kata Pelanggan Kami'}</h2>
+    <p>{isEnglish ? 'Trusted by customers who shop for authentic Solo lurik at our store' : 'Kepercayaan dari pelanggan yang sudah belanja lurik Solo asli di toko kami'}</p>
     <div class="rating-badge">
       <span class="stars">★★★★★</span>
-      <span class="rating-text">4.9 dari 225+ ulasan Google</span>
+      <span class="rating-text">{isEnglish ? '4.9 from 225+ Google reviews' : '4.9 dari 225+ ulasan Google'}</span>
     </div>
   </div>
 
@@ -56,7 +60,7 @@ const testimonials: Testimonial[] = [
       <div class="testimonial-card">
         {t.image && (
           <div class="testimonial-image">
-            <img src={t.image} alt={`Testimoni ${t.name}`} loading="lazy" />
+            <img src={t.image} alt={`${isEnglish ? 'Testimonial' : 'Testimoni'} ${t.name}`} loading="lazy" />
           </div>
         )}
         <div class="testimonial-stars">{"★".repeat(t.rating)}{"☆".repeat(5 - t.rating)}</div>
@@ -64,7 +68,7 @@ const testimonials: Testimonial[] = [
         <div class="testimonial-footer">
           <span class="testimonial-name">{t.name}</span>
           {t.location && <span class="testimonial-location"> · {t.location}</span>}
-          {t.product && <span class="testimonial-product">{t.product}</span>}
+          {t.product && <span class="testimonial-product">{isEnglish ? (t.product === 'Surjan Lurik Solo - Dewasa' ? 'Solo Lurik Surjan - Adult' : t.product === 'Lurik Anak.' ? 'Children’s Lurik' : t.product) : t.product}</span>}
         </div>
       </div>
     ))}
@@ -72,7 +76,7 @@ const testimonials: Testimonial[] = [
 
   <div class="testimonials-cta">
     <a href="https://maps.app.goo.gl/KKYBTMHtFMKXtvFS9" target="_blank" rel="noopener">
-      Lihat semua ulasan di Google →
+      {isEnglish ? 'See all Google reviews →' : 'Lihat semua ulasan di Google →'}
     </a>
   </div>
 </section>
