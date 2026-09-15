@@ -1,5 +1,8 @@
 ---
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 ---
 
 <footer class="footer" id="kontak">
@@ -9,17 +12,17 @@ import site from '../data/site.json';
         <img src="/images/logo.webp" alt="" width="64" height="64" />
         <span>{site.siteName}</span>
       </h3>
-      <p>Toko lurik & busana Jawa asli dari Pasar Klewer Solo. Melestarikan warisan budaya melalui fashion berkualitas.</p>
+      <p>{t.footer.description}</p>
     </div>
     <div class="footer-col">
-      <h4>Menu</h4>
+      <h4>{t.footer.menu}</h4>
       <a href="#home">Beranda</a>
       <a href="#produk">Katalog</a>
       <a href="#tentang">Tentang</a>
       <a href="#lokasi">Lokasi</a>
     </div>
     <div class="footer-col">
-      <h4>Sosial Media</h4>
+      <h4>{t.footer.social}</h4>
       <a class="footer-link" href={`https://instagram.com/${site.instagram.replace('@','')}`} target="_blank" rel="noopener noreferrer">
         <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
         <span>Instagram {site.instagram}</span>
@@ -34,7 +37,7 @@ import site from '../data/site.json';
       </a>
     </div>
     <div class="footer-col">
-      <h4>Kontak</h4>
+      <h4>{t.footer.contact}</h4>
       <a class="footer-link" href={`https://wa.me/${site.waNumber}`} target="_blank" rel="noopener noreferrer">
         <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M20 11.5a8 8 0 0 1-11.8 7.1L4 20l1.4-4.1A8 8 0 1 1 20 11.5Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 8.5c.2 2 2.4 4.2 4.5 4.5l1.2-1.2c.2-.2.5-.3.8-.1l1.4.7c.3.1.4.4.3.7-.3 1.1-1.3 1.7-2.4 1.5-3.8-.7-6.8-3.7-7.5-7.5-.2-1.1.4-2.1 1.5-2.4.3-.1.6 0 .7.3l.7 1.4c.1.3.1.6-.1.8L9 8.5Z"/></svg>
         <span>WhatsApp</span>
@@ -50,7 +53,7 @@ import site from '../data/site.json';
     </div>
   </div>
   <div class="footer-bottom">
-    © {new Date().getFullYear()} {site.siteName} — {site.location}. Dibuat dengan ❤️ di Solo.
+    © {new Date().getFullYear()} {site.siteName} — {site.location}. {t.footer.made}
   </div>
 </footer>
 <style>

@@ -1,24 +1,27 @@
 ---
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 ---
 
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-item">
       <h3>{site.reviews}</h3>
-      <p>Ulasan Google</p>
+      <p>{t.stats.reviews}</p>
     </div>
     <div class="stat-item">
       <h3>{site.rating}</h3>
-      <p>Rating Bintang</p>
+      <p>{t.stats.rating}</p>
     </div>
     <div class="stat-item">
       <h3>{parseInt(new Date().getFullYear()) - parseInt(site.established)}+</h3>
-      <p>Tahun Berdiri</p>
+      <p>{t.stats.established}</p>
     </div>
     <div class="stat-item">
       <h3>100%</h3>
-      <p>Produk Lokal</p>
+      <p>{t.stats.local}</p>
     </div>
   </div>
 </div>

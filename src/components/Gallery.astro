@@ -1,12 +1,15 @@
 ---
 import Carousel from './Carousel.astro';
 import gallery from '../data/gallery.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 ---
 
 <section id="galeri" class="gallery-section">
   <div class="gallery-inner">
-    <h2 class="gallery-title">Galeri</h2>
-    <p class="gallery-subtitle">Koleksi lurik kami dalam gambar</p>
+    <h2 class="gallery-title">{t.gallery.title}</h2>
+    <p class="gallery-subtitle">{t.gallery.subtitle}</p>
     <Carousel images={gallery.images} />
   </div>
 </section>

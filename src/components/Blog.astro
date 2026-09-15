@@ -1,5 +1,8 @@
 ---
 import blogData from '../data/blog.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 
 const posts = [...blogData.posts].sort(
   (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
@@ -9,7 +12,7 @@ const featuredPosts = posts.slice(0, 3);
 
 <section id="blog" class="blog-section">
   <div class="container">
-    <h2>Blog</h2>
+    <h2>{t.blog.title}</h2>
     <div class="blog-grid">
       {featuredPosts.map((post) => (
         <article class="blog-card">
@@ -17,14 +20,14 @@ const featuredPosts = posts.slice(0, 3);
           <div class="blog-card-body">
             <h3>{post.title}</h3>
             <p>{post.excerpt}</p>
-            <a href={`/blog/${post.slug}/`}>Baca selengkapnya</a>
+            <a href={`/blog/${post.slug}/`}>{t.blog.readMore}</a>
           </div>
         </article>
       ))}
     </div>
     {posts.length > featuredPosts.length && (
       <div class="blog-more">
-        <a href="/blog/">Lihat semua artikel →</a>
+        <a href="/blog/">{t.blog.all}</a>
       </div>
     )}
   </div>

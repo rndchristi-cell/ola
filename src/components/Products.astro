@@ -1,6 +1,18 @@
 ---
 import productsData from '../data/products.json';
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
+const productCopy: Record<number, { name: string; desc: string }> = {
+  1: { name: 'Solo Lurik Surjan - Adult', desc: 'Traditional ATBM handwoven lurik Surjan. Available in various motifs and colors.' },
+  2: { name: 'Lurik Kutubaru Kebaya - Adult', desc: 'ATBM handwoven lurik Kutubaru Kebaya, available in various motifs and colors.' },
+  3: { name: 'Lurik Surjan - Children', desc: 'Lurik Surjan for toddlers through teenagers.' },
+  4: { name: 'Lurik Kebaya - Children', desc: 'Lurik Kebaya for toddlers through teenagers.' },
+  5: { name: 'ATBM Handwoven Lurik Fabric', desc: 'Traditional ATBM handwoven lurik fabric.' },
+  6: { name: 'Solo Batik Jarik', desc: 'Solo jarik fabric with traditional batik motifs and options for stamped or hand-drawn batik.' }
+};
+const displayProduct = (product: typeof productsData.products[number]) => lang === 'en' ? (productCopy[product.id] || product) : product;
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -14,18 +26,20 @@ const formatPrice = (price: number) => {
 <section class="products" id="produk">
   <div class="section-header">
 <div class="section-header">
-  <h2>Katalog Produk</h2>
-  <p>Pilihan lurik dan busana Jawa terbaik dari pengrajin Kota Solo</p>
-  <p class="section-note">Katalog ini hanya sebagian kecil dari koleksi produk kami. Jika Anda ingin membeli produk kami yang lainnya, silakan hubungi kami melalui WA.</p>
+  <h2>{t.products.title}</h2>
+  <p>{t.products.subtitle}</p>
+  <p class="section-note">{t.products.note}</p>
 </div>
   <div class="product-grid">
-    {productsData.products.map((product) => (
+    {productsData.products.map((product) => {
+      const display = displayProduct(product);
+      return (
       <div class="product-card" data-product-id={product.id}>
         <div class="product-img" onclick={`openProductDetail(${product.id})`}>
           {product.image && (
             <img 
               src={product.image} 
-              alt={product.name}
+              alt={display.name}
               class="product-image-file"
               loading="lazy"
               onerror="this.style.display='none'; this.parentElement.querySelector('.emoji-fallback').style.display='flex';"
@@ -43,12 +57,12 @@ const formatPrice = (price: number) => {
           {product.badge && <span class="product-badge">{product.badge}</span>}
         </div>
         <div class="product-info">
-          <h3 onclick={`openProductDetail(${product.id})`}>{product.name}</h3>
-          <p class="desc" onclick={`openProductDetail(${product.id})`}>{product.desc}</p>
-{product.desc && product.desc.length > 80 && (
-  <span class="read-more" onclick={`openProductDetail(${product.id})`}>Baca selengkapnya</span>
+          <h3 onclick={`openProductDetail(${product.id})`}>{display.name}</h3>
+          <p class="desc" onclick={`openProductDetail(${product.id})`}>{display.desc}</p>
+{display.desc && display.desc.length > 80 && (
+  <span class="read-more" onclick={`openProductDetail(${product.id})`}>{t.products.readMore}</span>
 )}
-          <a class="product-detail-link" href={`/produk/${product.slug}/`}>Lihat detail produk</a>
+          <a class="product-detail-link" href={`/produk/${product.slug}/`}>{t.products.detail}</a>
           <div class="product-footer">
             <span class="price">{formatPrice(product.price)}</span>
             <button 
@@ -62,12 +76,13 @@ const formatPrice = (price: number) => {
               <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <span>Pesan</span>
+              <span>{t.products.order}</span>
             </button>
           </div>
         </div>
       </div>
-    ))}
+      );
+    })}
   </div>
 </section>
 
@@ -88,14 +103,14 @@ const formatPrice = (price: number) => {
         <div class="detail-badge" id="detailBadge" style="display:none;"></div>
         <div class="detail-desc" id="detailDesc">Deskripsi produk...</div>
         <div class="detail-variants" id="detailVariants" style="display:none;">
-          <strong>Ukuran Tersedia:</strong>
+          <strong>{lang === 'id' ? 'Ukuran Tersedia:' : 'Available Sizes:'}</strong>
           <div class="variant-tags" id="variantTags"></div>
         </div>
         <button class="detail-wa-btn" onclick="orderFromDetail()">
           <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <span>Pesan via WhatsApp</span>
+          <span>{t.products.orderWhatsApp}</span>
         </button>
       </div>
     </div>
@@ -110,7 +125,7 @@ const formatPrice = (price: number) => {
         <svg xmlns="http://www.w3.org/2000/svg" class="header-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        Pesan Produk
+        {lang === 'id' ? 'Pesan Produk' : 'Order Product'}
       </h3>
       <button class="wa-popup-close" onclick="closeWaPopup()">&times;</button>
     </div>
@@ -124,31 +139,31 @@ const formatPrice = (price: number) => {
     </div>
     <form id="waForm" onsubmit="sendToWA(event)">
       <div class="wa-form-group">
-        <label for="waName">Nama Lengkap *</label>
-        <input type="text" id="waName" name="name" placeholder="Masukkan nama Anda" required />
+        <label for="waName">{lang === 'id' ? 'Nama Lengkap *' : 'Full Name *'}</label>
+        <input type="text" id="waName" name="name" placeholder="{lang === 'id' ? 'Masukkan nama Anda' : 'Enter your name'}" required />
       </div>
       <div class="wa-form-row">
         <div class="wa-form-group">
-          <label for="waQty">Jumlah *</label>
+          <label for="waQty">{lang === 'id' ? 'Jumlah *' : 'Quantity *'}</label>
           <input type="number" id="waQty" name="qty" value="1" min="1" required />
         </div>
         <div class="wa-form-group" id="variantGroup" style="display:none;">
-          <label for="waVariant">Ukuran</label>
+          <label for="waVariant">{lang === 'id' ? 'Ukuran' : 'Size'}</label>
           <select id="waVariant" name="variant">
-            <option value="">Pilih Ukuran</option>
+            <option value="">{t.products.chooseSize}</option>
           </select>
         </div>
       </div>
       <div class="wa-form-group">
-        <label for="waNote">Catatan (opsional)</label>
-        <textarea id="waNote" name="note" placeholder="Warna, ukuran khusus, dll."></textarea>
+        <label for="waNote">{lang === 'id' ? 'Catatan (opsional)' : 'Notes (optional)'}</label>
+        <textarea id="waNote" name="note" placeholder="{lang === 'id' ? 'Warna, ukuran khusus, dll.' : 'Color, special size, etc.'}"></textarea>
       </div>
-<p class="wa-notice">Harga belum termasuk ongkir. Detail produk, ketersediaan produk, dan informasi lain terkait order akan kami informasikan setelah pesanan Anda kami terima.</p>
+<p class="wa-notice">{t.products.notice}</p>
 <button type="submit" class="wa-submit">
         <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
-        <span>Kirim ke WhatsApp</span>
+        <span>{t.products.send}</span>
       </button>
     </form>
   </div>
@@ -249,7 +264,7 @@ const formatPrice = (price: number) => {
 
     if (variants && variants.length > 0) {
       variantGroup.style.display = 'block';
-      variantSelect.innerHTML = '<option value="">Pilih Ukuran</option>';
+      variantSelect.innerHTML = '<option value="">{t.products.chooseSize}</option>';
       variants.forEach(v => {
         const opt = document.createElement('option');
         opt.value = v; opt.textContent = v;

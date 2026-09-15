@@ -1,10 +1,13 @@
 ---
 import site from '../data/site.json';
+import { getTranslations, type Language } from '../data/i18n';
+const { lang = 'id' } = Astro.props as { lang?: Language };
+const t = getTranslations(lang);
 ---
 
 <section class="location" id="lokasi">
-  <h2>Kunjungi Kami</h2>
-  <p class="location-sub">Datang langsung ke toko kami di Pasar Klewer Solo</p>
+  <h2>{t.location.title}</h2>
+  <p class="location-sub">{t.location.subtitle}</p>
   <div class="map-placeholder">
     <iframe 
       src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7909.99278087816!2d110.8267448!3d-7.5753702!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a16668982a14f%3A0x91712be42d7f3f55!2sOla%20Store%20-%20Lurik%20dan%20Busana%20Jawa!5e0!3m2!1sen!2sid!4v1784341506826!5m2!1sen!2sid" 
