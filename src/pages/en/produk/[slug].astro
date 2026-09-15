@@ -1,0 +1,75 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import productsData from '../../../data/products.json';
+import site from '../../../data/site.json';
+import { formatPrice, currencyConfig } from '../../../data/currency';
+
+const productCopy: Record<number, { name: string; desc: string }> = {
+  1: { name: 'Solo Lurik Surjan - Adult', desc: 'Traditional ATBM handwoven lurik Surjan. Available in various motifs and colors.' },
+  2: { name: 'Lurik Kutubaru Kebaya - Adult', desc: 'ATBM handwoven lurik Kutubaru Kebaya, available in various motifs and colors.' },
+  3: { name: 'Lurik Surjan - Children', desc: 'Lurik Surjan for toddlers through teenagers.' },
+  4: { name: 'Lurik Kebaya - Children', desc: 'Lurik Kebaya for toddlers through teenagers.' },
+  5: { name: 'ATBM Handwoven Lurik Fabric', desc: 'Traditional ATBM handwoven lurik fabric.' },
+  6: { name: 'Solo Batik Jarik', desc: 'Solo jarik fabric with traditional batik motifs and options for stamped or hand-drawn batik.' }
+};
+
+export function getStaticPaths() {
+  return productsData.products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product }
+  }));
+}
+
+const { product } = Astro.props;
+const display = productCopy[product.id] || product;
+const description = `${display.name}. ${display.desc} Order from Ola Store Solo at Pasar Klewer.`;
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: display.name,
+  image: new URL(product.image, Astro.site).href,
+  description: display.desc,
+  brand: { '@type': 'Brand', name: site.siteName },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    price: Number((product.price / currencyConfig.idrPerUsd).toFixed(2)),
+    availability: 'https://schema.org/InStock',
+    url: new URL(Astro.url.pathname, Astro.site).href,
+    seller: { '@type': 'ClothingStore', name: site.siteName }
+  }
+};
+---
+<Layout lang="en" title={`${display.name} | ${site.siteName}`} description={description} image={product.image}>
+  <main class="product-page">
+    <nav aria-label="Breadcrumb" class="breadcrumbs">
+      <a href="/en/">Home</a><span>/</span><a href="/en/#produk">Catalog</a><span>/</span><span>{display.name}</span>
+    </nav>
+    <article class="product-detail-page">
+      <div class="product-detail-media"><img src={product.image} alt={display.name} width="1200" height="1200" /></div>
+      <div class="product-detail-copy">
+        <p class="eyebrow">Ola Store Solo Collection</p>
+        <h1>{display.name}</h1>
+        <p class="product-price">{formatPrice(product.price, 'en')}</p>
+        <p>{display.desc}</p>
+        {product.variants?.length > 0 && <p><strong>Available sizes:</strong> {product.variants.join(', ')}</p>}
+        <p><a class="product-order-button" href={`https://wa.me/${site.waNumber}?text=${encodeURIComponent(`Hello Ola Store! I am interested in ${display.name}. The displayed price is ${formatPrice(product.price, 'en')}.`)}`} target="_blank" rel="noopener noreferrer">Order via WhatsApp</a></p>
+        <p><a href="/en/#produk">← Back to catalog</a></p>
+      </div>
+    </article>
+    <p class="currency-note">Displayed USD price is an estimate based on 1 USD = Rp {currencyConfig.idrPerUsd.toLocaleString('id-ID')}. Final price and availability will be confirmed via WhatsApp.</p>
+  </main>
+</Layout>
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+<style>
+  .product-page { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .breadcrumbs { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:2rem; color:#6b6257; font-size:.9rem; }
+  .product-detail-page { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:3rem; align-items:center; }
+  .product-detail-media img { width:100%; height:auto; border-radius:12px; display:block; }
+  .eyebrow { text-transform:uppercase; letter-spacing:.08em; font-size:.8rem; }
+  .product-detail-copy h1 { margin:.5rem 0 1rem; }
+  .product-price { font-size:1.5rem; font-weight:700; }
+  .product-order-button { display:inline-block; padding:.8rem 1.1rem; border-radius:8px; background:#5c321c; color:#fff; text-decoration:none; font-weight:600; }
+  .currency-note { margin-top:2rem; font-size:.9rem; opacity:.75; }
+  @media (max-width: 720px) { .product-detail-page { grid-template-columns:1fr; gap:1.5rem; } }
+</style>
