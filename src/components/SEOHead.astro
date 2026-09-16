@@ -25,7 +25,7 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image, Astro.site);
-const isLocalizedHome = /^\/(id|en)\/?$/.test(Astro.url.pathname);
+const isLocalizedHome = Astro.url.pathname === '/' || Astro.url.pathname === '/en/' || Astro.url.pathname === '/id/';
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
@@ -93,9 +93,9 @@ const articleSchema = type === 'article' ? {
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
 {isLocalizedHome && <>
-  <link rel="alternate" hreflang="id" href={new URL('/id/', Astro.site)} />
+  <link rel="alternate" hreflang="id" href={new URL('/', Astro.site)} />
   <link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site)} />
-  <link rel="alternate" hreflang="x-default" href={new URL('/id/', Astro.site)} />
+  <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
 </>}
 
 <meta property="og:type" content={type} />
