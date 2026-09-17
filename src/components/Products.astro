@@ -173,6 +173,13 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
     if (!product) return;
     currentDetailProduct = product;
 
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'view_item',
+      item_id: String(product.id),
+      item_name: product.name
+    });
+
     document.getElementById('detailName').textContent = product.name;
     document.getElementById('detailPrice').textContent = displayCurrency === 'USD'
       ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(product.price / idrPerUsd)
