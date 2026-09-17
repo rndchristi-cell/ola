@@ -1,0 +1,153 @@
+<div class="cookie-consent" id="cookie-consent" hidden>
+  <div class="cookie-content">
+    <div>
+      <strong>Privasi & Cookie</strong>
+      <p>
+        Kami menggunakan cookie untuk membantu menganalisis penggunaan situs
+        dan meningkatkan pengalaman Anda.
+      </p>
+    </div>
+
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="cookie-btn primary">
+        Setuju
+      </button>
+      <button type="button" id="cookie-essential" class="cookie-btn secondary">
+        Hanya yang diperlukan
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const consentBanner = document.getElementById('cookie-consent');
+  const acceptButton = document.getElementById('cookie-accept');
+  const essentialButton = document.getElementById('cookie-essential');
+
+  const consentKey = 'ola_cookie_consent';
+
+  if (!localStorage.getItem(consentKey)) {
+    consentBanner?.removeAttribute('hidden');
+  }
+
+  acceptButton?.addEventListener('click', () => {
+  localStorage.setItem(consentKey, 'accepted');
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'cookie_consent_update',
+    analytics_storage: 'granted',
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted'
+  });
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'update', {
+      analytics_storage: 'granted',
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted'
+    });
+  }
+
+  consentBanner?.setAttribute('hidden', '');
+});
+
+essentialButton?.addEventListener('click', () => {
+  localStorage.setItem(consentKey, 'essential');
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'cookie_consent_update',
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'update', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+  }
+
+  consentBanner?.setAttribute('hidden', '');
+});
+</script>
+
+<style>
+  .cookie-consent {
+    width: 100%;
+    padding: 12px 20px;
+    background: #f4f4f4;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+  }
+
+  .cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .cookie-content strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .cookie-content p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .cookie-btn {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .cookie-btn.primary {
+    background: #222;
+    color: #fff;
+    border-color: #222;
+  }
+
+  .cookie-btn.secondary {
+    background: #fff;
+    color: #333;
+  }
+
+  @media (max-width: 700px) {
+    .cookie-content {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cookie-actions {
+      width: 100%;
+    }
+
+    .cookie-btn {
+      flex: 1;
+    }
+  }
+</style>

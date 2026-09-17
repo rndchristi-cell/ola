@@ -30,7 +30,23 @@ const { title, description, image, type, publishedTime, modifiedTime, author, la
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="manifest" href="/site.webmanifest" />
+  <!-- Google Consent Mode -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
 
+    const savedConsent = localStorage.getItem('ola_cookie_consent');
+
+    gtag('consent', 'default', {
+      analytics_storage: savedConsent === 'accepted' ? 'granted' : 'denied',
+      ad_storage: savedConsent === 'accepted' ? 'granted' : 'denied',
+      ad_user_data: savedConsent === 'accepted' ? 'granted' : 'denied',
+      ad_personalization: savedConsent === 'accepted' ? 'granted' : 'denied',
+      wait_for_update: 500
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -40,13 +56,21 @@ const { title, description, image, type, publishedTime, modifiedTime, author, la
   <!-- End Google Tag Manager -->
 
   <!-- Microsoft Clarity -->
-  <script>
+<script>
+  const clarityConsent =
+    localStorage.getItem('ola_cookie_consent') === 'accepted';
+
+  if (clarityConsent) {
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        t=l.createElement(r);
+        t.async=1;
+        t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "j5dgqybz69");
-  </script>
+  }
+</script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->

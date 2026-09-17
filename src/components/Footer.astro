@@ -3,6 +3,7 @@ import site from '../data/site.json';
 import { getTranslations, type Language } from '../data/i18n';
 const { lang = 'id' } = Astro.props as { lang?: Language };
 const t = getTranslations(lang);
+import CookieConsent from './CookieConsent.astro';
 ---
 
 <footer class="footer" id="kontak">
@@ -61,6 +62,7 @@ const t = getTranslations(lang);
     © {new Date().getFullYear()} {site.siteName} — {site.location}. {t.footer.made}
   </div>
 </footer>
+<CookieConsent />
 <style>
   .footer-brand-heading { display:flex; align-items:center; gap:.7rem; }
   .footer-brand-heading img { width:54px; height:54px; border-radius:10px; object-fit:cover; background:#fff; }
