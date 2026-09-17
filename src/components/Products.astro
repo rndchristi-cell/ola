@@ -317,6 +317,11 @@ const formatPrice = (price: number) => formatLocalizedPrice(price, lang);
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.wa-popup-trigger').forEach(btn => {
       btn.addEventListener('click', function() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'whatsapp_click',
+          item_name: this.dataset.name
+        });
         const variants = JSON.parse(this.dataset.variants || '[]');
         openWaPopup(
           this.dataset.name,
