@@ -4,7 +4,7 @@ export const translations = {
   id: {
     htmlLang: 'id',
     nav: { home: 'Beranda', catalog: 'Katalog', gallery: 'Galeri', about: 'Tentang', blog: 'Blog', testimonials: 'Testimoni', location: 'Lokasi', contact: 'Hubungi Kami' },
-    hero: { title: 'Toko Lurik Solo & Busana Jawa', highlight: 'Asli, Sejak 2017', description: 'Toko lurik Solo terpercaya — koleksi lurik Jawa tradisional dan busana khas “Surjane Ola”, berkualitas dari pengrajin lokal Kota Solo. Sentuhan warisan, gaya masa kini.', catalog: 'Lihat Katalog →', chat: 'Chat WA' },
+    hero: { title: 'Toko Lurik Solo & Busana Jawa', highlight: 'Asli, Sejak 2017', description: 'Toko Lurik Solo dan Busana Jawa terpercaya — koleksi lurik Jawa tradisional dan busana khas “Surjane Ola”, berkualitas dari pengrajin lokal Kota Solo. Sentuhan warisan budaya, gaya masa kini.', catalog: 'Lihat Katalog →', chat: 'Chat WA' },
     stats: { reviews: 'Ulasan Google', rating: 'Rating Bintang', established: 'Tahun Berdiri', local: 'Produk Lokal' },
     products: { title: 'Katalog Produk', subtitle: 'Pilihan lurik dan busana Jawa terbaik dari pengrajin Kota Solo', note: 'Katalog ini hanya sebagian kecil dari koleksi produk kami. Jika Anda ingin membeli produk lainnya, silakan hubungi kami melalui WhatsApp.', readMore: 'Baca selengkapnya', detail: 'Lihat detail produk', order: 'Pesan', orderWhatsApp: 'Pesan via WhatsApp', chooseSize: 'Pilih Ukuran', send: 'Kirim ke WhatsApp', notice: 'Harga belum termasuk ongkir. Detail produk, ketersediaan, dan informasi lain terkait pesanan akan kami informasikan setelah pesanan diterima.' },
     gallery: { title: 'Galeri', subtitle: 'Koleksi lurik kami dalam gambar' },
@@ -18,7 +18,7 @@ export const translations = {
   en: {
     htmlLang: 'en',
     nav: { home: 'Home', catalog: 'Catalog', gallery: 'Gallery', about: 'About Us', blog: 'Blog', testimonials: 'Reviews', location: 'Location', contact: 'Contact Us' },
-    hero: { title: 'Solo Lurik & Javanese Attire', highlight: 'Authentic Since 2017', description: 'A trusted lurik store in Solo, offering traditional Javanese lurik fabrics and signature “Surjane Ola” attire, crafted by local artisans. Traditional heritage, styled for today.', catalog: 'View Catalog →', chat: 'Chat on WhatsApp' },
+    hero: { title: 'Solo Lurik & Javanese Attire', highlight: 'Authentic Since 2017', description: 'A trusted Lurik and Javanese Clothing Store in Solo — featuring traditional Javanese lurik fabrics and “Surjane Ola” attire, crafted by local artisans in Solo. Cultural heritage, styled for today.', catalog: 'View Catalog →', chat: 'Chat on WhatsApp' },
     stats: { reviews: 'Google Reviews', rating: 'Star Rating', established: 'Established', local: 'Local Products' },
     products: { title: 'Product Catalog', subtitle: 'A selection of lurik fabrics and Javanese attire crafted by local artisans in Solo', note: 'This catalog shows only part of our collection. For more products, feel free to contact us via WhatsApp.', readMore: 'Read more', detail: 'View product details', order: 'Order', orderWhatsApp: 'Order via WhatsApp', chooseSize: 'Choose Size', send: 'Send to WhatsApp', notice: 'Shipping is not included. Product details, availability, and other order information will be confirmed after we receive your request.' },
     gallery: { title: 'Gallery', subtitle: 'A look at our lurik collection' },
