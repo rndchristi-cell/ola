@@ -3,10 +3,10 @@ import Layout from '../../../layouts/Layout.astro';
 import blogData from '../../../data/blog.en.json';
 const posts = [...blogData.posts].sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 ---
-<Layout lang="en" title="All Blog Articles about Solo Lurik | Ola Store" description="Read Ola Store articles about Solo lurik, ATBM handwoven fabric, Javanese apparel, fabric care, and traditional style inspiration.">
+<Layout lang="en" title="All Blog Articles about Solo Lurik | Ola Store" description="Read Ola Store articles about Solo lurik, ATBM handwoven fabric, Javanese attire, fabric care, and traditional style inspiration.">
   <main class="blog-index">
     <nav aria-label="Breadcrumb" class="breadcrumbs"><a href="/en/">Home</a><span>/</span><span>Blog</span></nav>
-    <header class="blog-index-header"><p class="eyebrow">Ola Store Insights</p><h1>All Blog Articles</h1><p>Stories, guides, and inspiration about Solo lurik, ATBM handwoven fabric, and Javanese apparel.</p></header>
+    <header class="blog-index-header"><p class="eyebrow">Ola Store Insights</p><h1>All Blog Articles</h1><p>Stories, guides, and inspiration about Solo lurik, ATBM handwoven fabric, and Javanese attire.</p></header>
     <div class="blog-grid">
       {posts.map((post) => <article class="blog-card"><img src={post.image} alt={post.title} loading="lazy" width="1200" height="800" /><div class="blog-card-body"><p class="post-date"><time datetime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</time></p><h2>{post.title}</h2><p>{post.excerpt}</p><a href={`/en/blog/${post.slug}/`}>Read more →</a></div></article>)}
     </div>
