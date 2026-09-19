@@ -54,6 +54,7 @@ const productSchema = {
         <p>{display.desc}</p>
         {product.variants?.length > 0 && <p><strong>Available sizes:</strong> {product.variants.join(', ')}</p>}
         <p><a class="product-order-button" href={`https://wa.me/${site.waNumber}?text=${encodeURIComponent(`Hello Ola Store! I am interested in ${display.name}. The displayed price is ${formatPrice(product.price, 'en')}.`)}`} target="_blank" rel="noopener noreferrer">Order via WhatsApp</a></p>
+        <p><a href="/en/shipping/">Learn how international orders work →</a></p>
         <p><a href="/en/#produk">← Back to catalog</a></p>
       </div>
     </article>

@@ -1,9 +1,11 @@
 ---
 import site from '../data/site.json';
 import { getTranslations, type Language } from '../data/i18n';
+import CookieConsent from './CookieConsent.astro';
 const { lang = 'id' } = Astro.props as { lang?: Language };
 const t = getTranslations(lang);
-import CookieConsent from './CookieConsent.astro';
+const isLocalizedPage = /^\/(id|en)\//.test(Astro.url.pathname);
+const homePath = isLocalizedPage ? `/${lang}/` : '/';
 ---
 
 <footer class="footer" id="kontak">
@@ -17,10 +19,11 @@ import CookieConsent from './CookieConsent.astro';
     </div>
     <div class="footer-col">
       <h4>{t.footer.menu}</h4>
-      <a href="#home">{t.nav.home}</a>
-      <a href="#produk">{t.nav.catalog}</a>
-      <a href="#tentang">{t.nav.about}</a>
-      <a href="#lokasi">{t.nav.location}</a>
+      <a href={`${homePath}#home`}>{t.nav.home}</a>
+      <a href={`${homePath}#produk`}>{t.nav.catalog}</a>
+      <a href={`${homePath}#tentang`}>{t.nav.about}</a>
+      <a href={`${homePath}#lokasi`}>{t.nav.location}</a>
+      {lang === 'en' && <a href="/en/shipping/">How to Order</a>}
     </div>
     <div class="footer-col footer-social-col">
       <h4>{t.footer.social}</h4>
@@ -38,7 +41,7 @@ import CookieConsent from './CookieConsent.astro';
           <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-3.47 18.34c-.08-1.56-.01-3.44.39-4.93l1.06-4.5s-.27-.55-.27-1.36c0-1.27.74-2.22 1.67-2.22.79 0 1.17.59 1.17 1.29 0 .79-.5 1.96-.76 3.05-.22.91.46 1.65 1.36 1.65 1.63 0 2.89-1.72 2.89-4.2 0-2.2-1.58-3.74-3.84-3.74-2.62 0-4.16 1.96-4.16 3.99 0 .79.3 1.64.68 2.1.08.1.09.19.07.3l-.25 1.02c-.04.16-.13.19-.29.11-1.08-.5-1.75-2.08-1.75-3.35 0-2.73 1.98-5.23 5.7-5.23 2.99 0 5.32 2.13 5.32 4.98 0 2.97-1.87 5.36-4.46 5.36-.87 0-1.69-.45-1.97-.98l-.54 2.04c-.2.75-.75 1.69-1.12 2.26.84.26 1.73.4 2.65.4A9.5 9.5 0 1 0 12 2.5Z"/></svg>
         </a>
         <a class="social-icon-link" href="https://www.tripadvisor.com/Attraction_Review-g297713-d23850676-Reviews-Ola_Store_Solo-Solo_Central_Java_Java.html" target="_blank" rel="noopener noreferrer" aria-label="Tripadvisor">
-          <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 5.2c-3.7 0-6.9 1.2-8.7 3.2H1.5v1.7h1.2c-.3.7-.5 1.5-.5 2.3a5.3 5.3 0 0 0 9.8 2.8 5.3 5.3 0 0 0 9.8-2.8c0-.8-.2-1.6-.5-2.3h1.2V8.4h-1.8C19 6.4 15.7 5.2 12 5.2Zm-5.2 3.4a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm10.4 0a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6ZM6.8 11a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm10.4 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/></svg>
+          <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 5.2c-3.7 0-6.9 1.2-8.7 3.2H1.5v1.7h1.2c-.3.7-.5 1.5-.5 2.3a5.3 5.3 0 0 0 9.8 2.8 5.3 5.3 0 0 0 9.8-2.8c0-.8-.2-1.6-.5-2.3h1.2V8.4h-1.8C19 6.4 15.7 5.2 12 5.2Zm-5.2 3.4a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm10.4 0a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6ZM6.8 11a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm10.4 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0-2.8 0Z"/></svg>
         </a>
       </div>
     </div>

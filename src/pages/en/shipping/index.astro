@@ -1,0 +1,139 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
+import site from '../../../data/site.json';
+
+const pageTitle = 'How to Order from Ola Store | International Orders';
+const pageDescription = 'Learn how to order authentic Solo lurik and Javanese apparel from Ola Store, including payment, international shipping, customs fees, tracking, and exchange terms.';
+---
+
+<Layout lang="en" title={pageTitle} description={pageDescription}>
+  <main class="shipping-page">
+    <header class="shipping-hero">
+      <a class="back-link" href="/en/">← Back to Ola Store</a>
+      <p class="eyebrow">Ola Store Solo · International Customers</p>
+      <h1>How to Order</h1>
+      <p class="lead">We are happy to help you find authentic Solo lurik and Javanese apparel. Please follow the steps below to place an international order.</p>
+    </header>
+
+    <div class="shipping-layout">
+      <article class="shipping-content">
+        <section>
+          <h2>1. Choose a product and contact us</h2>
+          <p>Browse our catalog and select a product you would like to purchase or ask about. Use the order form on the product page to tell us your name, the quantity, preferred size, and any notes, then send the request to our WhatsApp customer service.</p>
+          <p>You may also contact us to ask about products that are not currently shown in the catalog. Sending a WhatsApp request does not complete the purchase yet; our team will first confirm the details and availability with you.</p>
+        </section>
+
+        <section>
+          <h2>2. Confirm the order</h2>
+          <p>Our customer service team will review your request and confirm whether the selected product is available. If you need more information, we can help explain the available size, color, motif, style, material, and other product details.</p>
+          <p>Once the product details and availability are confirmed, we will provide the final product total and a shipping quote for your destination.</p>
+        </section>
+
+        <section>
+          <h2>3. Payment</h2>
+          <p>International payments are accepted through PayPal in USD. We will process your order after the payment has been successfully received and confirmed by Ola Store.</p>
+          <p>Prices displayed in USD are estimates based on the current exchange-rate setting and may change when your order is confirmed. Product prices do not include shipping or other applicable charges.</p>
+        </section>
+
+        <section>
+          <h2>4. Shipping and delivery</h2>
+          <p>We will select the most affordable trackable shipping option available for your destination. For international shipments, we commonly use EMS Pos Indonesia International. If you prefer another carrier, such as DHL or FedEx, please let us know. Your requested carrier must be available in our area.</p>
+          <p>Orders are dispatched within a maximum of <strong>3 business days</strong> after payment has been received and confirmed. This is the processing time, not the delivery time. The actual transit time depends on the destination country, carrier, customs clearance, weekends, public holidays, and circumstances outside our control.</p>
+        </section>
+
+        <section>
+          <h2>5. Customs, taxes, and other charges</h2>
+          <p>Product prices and shipping charges do not include import duties, customs taxes, handling fees, or other charges that may be imposed by the destination country. These charges are the buyer's responsibility and must be paid according to the rules of the destination country.</p>
+        </section>
+
+        <section>
+          <h2>6. Returns, exchanges, and refunds</h2>
+          <p>For international orders, <strong>we do not offer refunds or accept product returns</strong>. Once an order has been purchased, it cannot be returned because of a change of mind, an incorrect size selection, or other personal reasons.</p>
+          <p>In certain circumstances, we may consider an <strong>exchange for the same product</strong>, subject to prior approval from Ola Store. Exchanges do not apply to a different product, size, color, or style.</p>
+          <p>All costs related to the exchange process, including shipping the item back to Ola Store, reshipping the replacement item, import duties, taxes, and any other applicable charges, must be paid in full by the buyer.</p>
+          <p>Please contact us and obtain approval before sending any item back. Items returned without prior approval cannot be processed as an exchange.</p>
+        </section>
+
+        <section>
+          <h2>7. Tracking your order</h2>
+          <p>After your order has been shipped, we will send you the tracking number or AWB so that you can follow the delivery. Please keep in contact with us during transit so we can assist if a delivery issue occurs.</p>
+        </section>
+
+        <section>
+          <h2>8. Need help before ordering?</h2>
+          <p>If you have any questions before purchasing, please contact us through WhatsApp, email, or Instagram direct message. We will be happy to help you understand the product and ordering process.</p>
+          <div class="contact-actions">
+            <a class="button button-primary" href={`https://wa.me/${site.waNumber}`} target="_blank" rel="noopener noreferrer">Contact us on WhatsApp</a>
+            <a class="button button-secondary" href={`mailto:${site.email}`}>Send us an email</a>
+          </div>
+          <p class="trust-note">You can also view customer feedback on our <a href="https://instagram.com/ola.lurik" target="_blank" rel="noopener noreferrer">Instagram</a> and Google Business Profile.</p>
+        </section>
+      </article>
+
+      <aside class="shipping-aside" aria-label="International order summary">
+        <p class="aside-label">Before you order</p>
+        <h2>A quick summary</h2>
+        <ul>
+          <li>Send us your product request through WhatsApp.</li>
+          <li>Wait for product availability and shipping confirmation.</li>
+          <li>Pay through PayPal after the final total is confirmed.</li>
+          <li>Allow up to 3 business days for processing.</li>
+          <li>Keep your tracking number until delivery is complete.</li>
+        </ul>
+        <p class="aside-note">International orders are final: no refunds or returns. A same-product exchange may be considered with prior approval, with all shipping and related costs paid by the buyer.</p>
+      </aside>
+    </div>
+  </main>
+  <Footer lang="en" />
+</Layout>
+
+<style>
+  .shipping-page { padding: 3rem 1.5rem 6rem; max-width: 1180px; margin: 0 auto; }
+  .shipping-hero { max-width: 760px; padding: 2rem 0 3.5rem; }
+  .back-link { color: var(--primary); text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .back-link:hover { text-decoration: underline; }
+  .eyebrow, .aside-label { color: var(--primary); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .eyebrow { margin: 3rem 0 1rem; }
+  h1, h2 { font-family: 'Playfair Display', serif; color: var(--primary-dark); }
+  h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.2rem; }
+  .lead { color: var(--text-light); font-size: 1.15rem; max-width: 680px; }
+  .shipping-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 4rem; align-items: start; }
+  .shipping-content { max-width: 760px; }
+  .shipping-content section { border-top: 1px solid var(--border); padding: 2rem 0; }
+  .shipping-content h2 { font-size: 1.65rem; margin-bottom: .8rem; }
+  .shipping-content p { color: var(--text-light); margin-bottom: .85rem; }
+  .shipping-content a { color: var(--primary-dark); font-weight: 600; }
+  .shipping-aside { position: sticky; top: 2rem; background: var(--primary-dark); color: #fff; border-radius: 16px; padding: 1.8rem; box-shadow: 0 14px 40px rgba(44, 24, 16, .16); }
+  .shipping-aside h2 { color: #fff; font-size: 1.7rem; margin: .35rem 0 1.1rem; }
+  .shipping-aside ul { padding-left: 1.2rem; margin-bottom: 1.3rem; }
+  .shipping-aside li { margin: .7rem 0; color: rgba(255,255,255,.88); }
+  .aside-note { border-top: 1px solid rgba(255,255,255,.25); padding-top: 1rem; color: rgba(255,255,255,.78); font-size: .88rem; }
+  .contact-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.4rem 0; }
+  .button { display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; padding: .8rem 1.1rem; text-decoration: none; font-weight: 700; }
+  .button-primary { background: var(--primary); color: #fff !important; }
+  .button-primary:hover { background: var(--primary-dark); }
+  .button-secondary { border: 1px solid var(--primary); color: var(--primary-dark) !important; }
+  .button-secondary:hover { background: var(--cream-dark); }
+  .trust-note { font-size: .9rem; }
+  @media (max-width: 800px) {
+    .shipping-page { padding-top: 1.5rem; }
+    .shipping-layout { grid-template-columns: 1fr; gap: 1rem; }
+    .shipping-aside { position: static; grid-row: 1; }
+    .shipping-content { grid-row: 2; }
+  }
+</style>
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: pageTitle,
+  description: pageDescription,
+  inLanguage: 'en',
+  publisher: { '@type': 'ClothingStore', name: site.siteName, url: Astro.site?.href },
+  step: [
+    { '@type': 'HowToStep', name: 'Choose a product and contact Ola Store' },
+    { '@type': 'HowToStep', name: 'Confirm the order and shipping quote' },
+    { '@type': 'HowToStep', name: 'Pay through PayPal' },
+    { '@type': 'HowToStep', name: 'Receive tracking details after dispatch' }
+  ]
+})} />
